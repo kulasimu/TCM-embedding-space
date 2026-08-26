@@ -103,6 +103,11 @@ TCM-embedding-space/
 
 ---
 
+## Figure source data
+
+Source data underlying the main-text figures are provided in the [`figure_data/`](figure_data/) directory. The files contain the plotting data used for the corresponding figure panels in the manuscript; additional exploratory and sensitivity analyses are not included in this source-data collection.
+
+
 ## Installation
 
 ### 1. Obtain the repository
