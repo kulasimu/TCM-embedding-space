@@ -72,7 +72,7 @@ TCM-embedding-space/
 │
 ├── results/
 ├── demo.py
-└── main.py
+└── model.py
 ```
 
 ### Main scripts
