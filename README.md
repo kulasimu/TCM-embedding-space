@@ -3,7 +3,7 @@
 **Code and reproducibility resources for:**  
 **_An Interpretable AI Framework Quantifying TCM Principles towards Integration with Modern Biomedicine_**
 
-[arXiv:2507.11176](https://arxiv.org/abs/2507.11176) · [Online TCM-ES toolbox](http://47.239.86.39/) · [Pretrained checkpoints](https://github.com/kulasimu/TCM-embedding-space/releases)
+[arXiv:2507.11176](https://arxiv.org/abs/2507.11176) · [Online TCM-ES toolbox](http://47.239.86.39/)
 
 ## Overview
 
