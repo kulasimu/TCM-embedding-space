@@ -98,7 +98,7 @@ TCM-embedding-space/
 | `bin/PPI_concordance_analysis.py` | Evaluate concordance between integrated TCM-ES geometry and the human PPI network |
 | `bin/prepare_embedding_baselines.py` | Prepare co-occurrence-based comparison embeddings |
 
-`main.py` provides the ordered analysis workflow used for the repository. `demo.py` provides a lighter-weight entry point for demonstration with the public example data.
+`demo.py` provides a lighter-weight entry point for demonstration with the public example data. 
 
 ---
 
@@ -201,6 +201,17 @@ core/trained_model/model_epoch_60.pkl
 ```
 
 The repeat-model workflows scan the corresponding `repeat_XX` directories for their model checkpoint.
+
+---
+## Data and reproducibility notes
+
+The repository contains standardized TCM vocabularies, processed/public demonstration datasets, split files, analysis scripts, and reproducibility resources used by the project.
+
+The public clinical example datasets are intended to demonstrate the analysis workflow and data format. Results obtained from the example subsets are **not expected to reproduce the exact results reported in the paper**.
+
+Raw patient-level clinical datasets are not deposited publicly because of privacy and data-use restrictions. Availability of de-identified clinical data is subject to the conditions described in the accompanying manuscript.
+
+The `results/` directory contains generated or precomputed analysis outputs where provided. Most outputs can be regenerated from the corresponding script once the required data and checkpoints are available.
 
 ---
 
@@ -427,17 +438,7 @@ shows its required paths and optional settings.
 
 ---
 
-## Data and reproducibility notes
 
-The repository contains standardized TCM vocabularies, processed/public demonstration datasets, split files, analysis scripts, and reproducibility resources used by the project.
-
-The public clinical example datasets are intended to demonstrate the analysis workflow and data format. Results obtained from the example subsets are **not expected to reproduce the exact clinical effect estimates reported for the full study cohorts**.
-
-Raw patient-level clinical datasets are not deposited publicly because of privacy and data-use restrictions. Availability of de-identified clinical data is subject to the conditions described in the accompanying manuscript.
-
-The `results/` directory contains generated or precomputed analysis outputs where provided. Most outputs can be regenerated from the corresponding script once the required data and checkpoints are available.
-
----
 
 ## Online toolbox
 
