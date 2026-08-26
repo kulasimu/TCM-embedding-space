@@ -1,0 +1,6 @@
+seed: 42
+same_title_jaccard: 0.6
+cross_title_jaccard: 0.9
+train_size: 1200
+val_size: 400
+test_size: 400
