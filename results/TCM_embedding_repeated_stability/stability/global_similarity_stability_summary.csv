@@ -1,0 +1,2 @@
+﻿metric,mean,std,median,min,max,n_repeat_pairs,n_sampled_record_pairs
+spearman_similarity_correlation,0.931867936911755,0.0059750304530393665,0.9309683952975221,0.9192593733632699,0.9424575299301684,45,200000
