@@ -328,7 +328,7 @@ class SimpleEncoder(nn.Module):
         self,
         input_dim: int,
         out_dim: int,
-        hidden_dims=(512,),      # 例如 (512,) 或 (1024, 512, 256)
+        hidden_dims=(512,),      # e.g., (512,) or (1024, 512, 256)
         dropout: float = 0.2,
         act: str = "gelu",       # "relu" | "gelu"
         norm: str | None = 'ln'  # None | "bn" | "ln"
@@ -343,7 +343,6 @@ class SimpleEncoder(nn.Module):
             layers.append(nn.Linear(in_d, out_d))
             is_last = (i == len(dims) - 2)
             if is_last:
-                # 最后一层：直接输出，不加激活/Dropout
                 break
 
             if norm == "bn":
@@ -365,8 +364,7 @@ class SimpleEncoder(nn.Module):
         return self.net(x)
 
 
-# Transformer 编码器（很小就够）
-# 不用位置编码（集合无序），或者每次随机 shuffle tokens。
+
 class SetTransformerEncoder(nn.Module):
     def __init__(self, d_model=256, nhead=4, num_layers=2, dropout=0.2):
         super().__init__()
@@ -377,7 +375,7 @@ class SetTransformerEncoder(nn.Module):
         self.encoder = nn.TransformerEncoder(enc_layer, num_layers=num_layers)
         self.out_ln = nn.LayerNorm(d_model)
 
-    def forward(self, x, pad_mask=None): # input x: 形状 [B, K, d]; pad_mask：形状 [B, K] 的 bool
+    def forward(self, x, pad_mask=None): # input x: shape [B, K, d]; pad_mask：shape [B, K] (bool)
         y = self.encoder(x, src_key_padding_mask=pad_mask)  # [B,K,d]
         if pad_mask is None:
             pooled = y.mean(dim=1)
@@ -385,6 +383,6 @@ class SetTransformerEncoder(nn.Module):
             mask = (~pad_mask).float()  # 1 for real
             denom = mask.sum(dim=1, keepdim=True).clamp(min=1.0)
             pooled = (y * mask.unsqueeze(-1)).sum(dim=1) / denom
-        return self.out_ln(pooled)      # 形状 [B, d] 的集合 embedding（组合 embedding） 每个样本一个向量 z_S，仍然是 256 维（对齐 herb 空间）。
+        return self.out_ln(pooled)      # shape [B, d] 
 
 
