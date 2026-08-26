@@ -3,7 +3,7 @@
 **Code and reproducibility resources for:**  
 **_An Interpretable AI Framework Quantifying TCM Principles towards Integration with Modern Biomedicine_**
 
-[arXiv:2507.11176](https://arxiv.org/abs/2507.11176) · [Online TCM-ES toolbox](http://47.239.86.39/)
+[arXiv:2507.11176](https://arxiv.org/abs/2507.11176) · [Online TCM-ES toolbox](http://47.239.86.39/) · [Example checkpoints](https://github.com/kulasimu/TCM-embedding-space/releases) · [Example data](https://github.com/kulasimu/TCM-embedding-space/releases)
 
 ## Overview
 
@@ -71,7 +71,8 @@ TCM-embedding-space/
 │   └── training/
 │
 ├── results/
-├── demo.py
+├── demo.ipynb
+├── main.py
 └── model.py
 ```
 
@@ -98,7 +99,7 @@ TCM-embedding-space/
 | `bin/PPI_concordance_analysis.py` | Evaluate concordance between integrated TCM-ES geometry and the human PPI network |
 | `bin/prepare_embedding_baselines.py` | Prepare co-occurrence-based comparison embeddings |
 
-`demo.py` provides a lighter-weight entry point for demonstration with the public example data. 
+`demo.ipynb` provides a block-by-block demonstration workflow using the public example data. `main.py` contains the ordered analysis workflow used in the repository. 
 
 ---
 
@@ -141,9 +142,61 @@ Some optional preprocessing workflows may require additional packages. If an ind
 
 ---
 
+## Required downloads
+
+Large reproducibility files are distributed through **GitHub Releases** rather than stored directly in the Git repository.
+
+Before running the demonstration workflow, download:
+
+1. **TCM-ES pretrained checkpoints**
+   - 1 primary TCM-ES checkpoint;
+   - 10 independently trained repeat-model checkpoints.
+
+2. **TCM-ES example data and reproducibility resources**
+   - example TCM formula records;
+   - example general TCM clinical cases;
+   - example COVID-19 clinical cases;
+   - processed disease, herb–compound, herb–target, PPI, external TCM-PD, and model-input resources used by the public workflow.
+
+All releases are available at:
+
+**https://github.com/kulasimu/TCM-embedding-space/releases**
+
+> **Important:** The formula-record and clinical datasets distributed in the example-data release are provided to demonstrate code execution and the TCM-ES analysis workflow. Numerical results generated from these example subsets are **not expected to reproduce the exact results reported in the manuscript**, which were obtained using the corresponding full study datasets.
+
+### Install the example-data archive
+
+Download the archive from the **TCM-ES example data and reproducibility resources** release and extract it into the repository root.
+
+After extraction, the repository should contain:
+
+```text
+TCM-embedding-space/
+├── bin/
+├── core/
+├── data/
+│   ├── COVID_19_data/
+│   ├── disease/
+│   ├── general_TCM_clinical_cases/
+│   ├── herb_compounds/
+│   ├── herb_targets/
+│   ├── PPI/
+│   ├── TCM_formulas/
+│   ├── TCM_PD_external/
+│   └── training/
+├── results/
+├── demo.ipynb
+├── main.py
+└── model.py
+```
+
+No additional renaming of the `data/` subdirectories is required.
+
+---
+
 ## Download the pretrained checkpoints
 
-The large pretrained model files are distributed through **GitHub Releases** rather than stored directly in the Git repository.
+The pretrained model files are distributed through the **TCM-ES pretrained checkpoints** GitHub Release rather than stored directly in the Git repository.
 
 Go to:
 
@@ -205,27 +258,31 @@ The repeat-model workflows scan the corresponding `repeat_XX` directories for th
 ---
 ## Data and reproducibility notes
 
-The repository contains standardized TCM vocabularies, processed/public demonstration datasets, split files, analysis scripts, and reproducibility resources used by the project.
+The large public demonstration datasets and processed reproducibility resources are distributed through the **TCM-ES example data and reproducibility resources** GitHub Release.
 
-The public clinical example datasets are intended to demonstrate the analysis workflow and data format. Results obtained from the example subsets are **not expected to reproduce the exact results reported in the paper**.
+The clinical and formula-record datasets included in that release are **example datasets** intended to demonstrate data organization, code execution, and the TCM-ES analysis workflow. Results obtained from these example subsets are **not expected to reproduce the exact numerical results reported in the manuscript**, which were obtained using the corresponding full study datasets.
 
-Raw patient-level clinical datasets are not deposited publicly because of privacy and data-use restrictions. Availability of de-identified clinical data is subject to the conditions described in the accompanying manuscript.
+Raw patient-level clinical datasets are not publicly deposited because of privacy and data-use restrictions. After publication, de-identified clinical data may be requested from the corresponding author and may be made available upon reasonable request, subject to applicable data-use agreements and institutional requirements.
 
-The `results/` directory contains generated or precomputed analysis outputs where provided. Most outputs can be regenerated from the corresponding script once the required data and checkpoints are available.
+Processed biomedical resources included in the example-data release support the corresponding disease, herb–compound, herb–target, PPI, and external-benchmark workflows described in this repository.
+
+The `results/` directory contains generated or precomputed analysis outputs where provided. Most outputs can be regenerated from the corresponding scripts after the required example data and checkpoints have been installed.
 
 ---
 
 ## Quick start
 
-### 1. Run the lightweight demonstration
+### 1. Run the block-by-block demonstration
 
-After placing the primary checkpoint in `core/trained_model/`, run:
+After downloading the **example-data release** into `data/` and placing the primary checkpoint in `core/trained_model/`, open:
 
-```bash
-python demo.py
+```text
+demo.ipynb
 ```
 
-The demonstration uses the public example datasets included in the repository and is intended to show the data and model workflow without requiring the full manuscript-scale analyses.
+Run the notebook cells sequentially from the repository root directory. The notebook uses public example datasets to demonstrate the data-processing, embedding-generation, prediction, clinical-analysis, and biomedical-mapping workflows.
+
+**The numerical results generated from the example datasets are not expected to reproduce the exact manuscript results.**
 
 ### 2. Generate core TCM-ES embeddings
 
@@ -288,7 +345,7 @@ python bin/attention_perturbation_analysis.py \
 python main.py
 ```
 
-The full workflow is computationally more demanding and assumes that the required datasets and all pretrained/repeat checkpoints have been placed in the expected directories. Individual modules can also be run separately; use:
+The full workflow is computationally more demanding and assumes that the required data resources and all pretrained/repeat checkpoints have been placed in the expected directories. When run with the public example datasets, it demonstrates the workflow rather than reproducing the full manuscript-scale numerical results. Individual modules can also be run separately; use:
 
 ```bash
 python bin/<script_name>.py --help
