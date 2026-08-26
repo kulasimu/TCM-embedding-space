@@ -9,7 +9,7 @@
 
 Traditional Chinese Medicine (TCM) uses a holistic diagnostic–therapeutic framework in which complex symptom patterns are summarized into latent clinical patterns and subsequently translated into individualized multi-herb therapies. The qualitative nature of these principles, however, makes them difficult to study quantitatively and to relate systematically to modern biomedical information.
 
-This repository implements the **TCM Embedding Space (TCM-ES)** framework described in the accompanying paper. The core model is a Transformer-based autoencoder trained on matched symptom patterns and herbal formulas from ancient and classical TCM records. It combines bottleneck encoding, self-/cross-attention, reconstruction, and contrastive learning to map symptom patterns and formulas into a shared **256-dimensional embedding space**.
+This repository implements the **TCM Embedding Space (TCM-ES)** framework described in the accompanying paper. The core model is a Transformer-based autoencoder trained on matched symptom patterns and herbal formulas from ancient and classical TCM records. It combines bottleneck encoding, self-/cross-attention, reconstruction, and contrastive learning to map symptom patterns and formulas into a shared **low-dimensional measurable embedding space**.
 
 The core TCM-ES is trained only from matched symptom-pattern–formula records. Syndrome labels, herb-property annotations, clinical outcomes, and biomedical information are not used as training targets for the core model. These independent annotations and datasets are instead used for downstream interpretation, validation, and biomedical mapping.
 
