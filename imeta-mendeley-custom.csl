@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" default-locale="en-US" page-range-format="expanded">
+  <info>
+    <title>iMeta (Mendeley custom)</title>
+    <title-short>iMeta custom</title-short>
+    <id>http://www.zotero.org/styles/imeta-mendeley-custom</id>
+    <link href="http://www.zotero.org/styles/imeta-mendeley-custom" rel="self"/>
+    <link href="https://endnote.com/downloads/styles/imeta/" rel="documentation"/>
+    <link href="http://www.imeta.science/" rel="documentation"/>
+    <author>
+      <name>OpenAI</name>
+    </author>
+    <category citation-format="numeric"/>
+    <category field="science"/>
+    <summary>Custom CSL reconstruction of the iMeta EndNote output style for use in Mendeley, based on the supplied iMeta.ens, iMeta formatting checklist, and the manuscript reference examples. Citation ranges use a hyphen.</summary>
+    <updated>2026-09-19T00:00:00+00:00</updated>
+  </info>
+
+  <locale>
+    <style-options punctuation-in-quote="true"/>
+    <terms>
+      <term name="citation-range-delimiter">-</term>
+      <term name="page-range-delimiter">-</term>
+    </terms>
+  </locale>
+
+  <macro name="author">
+    <names variable="author">
+      <name name-as-sort-order="first"
+            sort-separator=", "
+            initialize="false"
+            delimiter=", "
+            delimiter-precedes-et-al="always"
+            et-al-min="11"
+            et-al-use-first="7"/>
+      <substitute>
+        <names variable="editor">
+          <name name-as-sort-order="first" sort-separator=", " initialize="false" delimiter=", " delimiter-precedes-et-al="always" et-al-min="11" et-al-use-first="7"/>
+        </names>
+        <text variable="publisher"/>
+        <text variable="title"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <macro name="editor-long">
+    <names variable="editor">
+      <name initialize="false" delimiter=", " delimiter-precedes-last="always"/>
+      <label form="verb" prefix=", " suffix=","/>
+    </names>
+  </macro>
+
+  <macro name="issued-year">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <macro name="accessed-long">
+    <date variable="accessed">
+      <date-part name="month" form="long" suffix=" "/>
+      <date-part name="day" suffix=", "/>
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <macro name="doi-or-url">
+    <choose>
+      <if variable="DOI">
+        <text variable="DOI" prefix="https://doi.org/"/>
+      </if>
+      <else-if variable="URL">
+        <text variable="URL"/>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="journal-article">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" quotes="true" suffix=". "/>
+      <group suffix=".">
+        <text variable="container-title" font-style="italic"/>
+        <text variable="volume" prefix=" "/>
+        <text variable="page" prefix=": "/>
+      </group>
+      <text macro="doi-or-url" prefix=" "/>
+    </group>
+  </macro>
+
+  <macro name="conference-paper">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" quotes="true" suffix=". "/>
+      <group suffix=".">
+        <text variable="container-title" font-style="italic"/>
+        <text variable="page" prefix=", pp. "/>
+      </group>
+      <text macro="doi-or-url" prefix=" "/>
+    </group>
+  </macro>
+
+  <macro name="book">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" font-style="italic" suffix=". "/>
+      <group delimiter=" " suffix=".">
+        <text variable="publisher"/>
+        <text variable="publisher-place"/>
+      </group>
+      <text macro="doi-or-url" prefix=" "/>
+    </group>
+  </macro>
+
+  <macro name="chapter">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" quotes="true" suffix=". "/>
+      <text variable="container-title" font-style="italic" prefix="In " suffix=". "/>
+      <text macro="editor-long"/>
+      <text variable="page" prefix=" pp. " suffix=". "/>
+      <group delimiter=" " suffix=".">
+        <text variable="publisher"/>
+        <text variable="publisher-place"/>
+      </group>
+      <text macro="doi-or-url" prefix=" "/>
+    </group>
+  </macro>
+
+  <macro name="webpage">
+    <group>
+      <text macro="author" suffix=". "/>
+      <choose>
+        <if variable="accessed">
+          <group prefix="(" suffix="). ">
+            <text macro="accessed-long"/>
+            <text value=", date last accessed"/>
+          </group>
+        </if>
+        <else>
+          <text macro="issued-year" suffix=". "/>
+        </else>
+      </choose>
+      <text variable="title" suffix=". "/>
+      <text variable="URL" suffix="."/>
+    </group>
+  </macro>
+
+  <macro name="thesis">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" font-style="italic" suffix=". "/>
+      <text variable="genre" suffix=". "/>
+      <group delimiter=" " suffix=".">
+        <text variable="publisher"/>
+        <text variable="publisher-place"/>
+      </group>
+      <text macro="doi-or-url" prefix=" "/>
+    </group>
+  </macro>
+
+  <macro name="report">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" font-style="italic" suffix=". "/>
+      <group delimiter=" " suffix=".">
+        <text variable="publisher"/>
+        <text variable="publisher-place"/>
+      </group>
+      <text macro="doi-or-url" prefix=" "/>
+    </group>
+  </macro>
+
+  <macro name="generic">
+    <group>
+      <text macro="author" suffix=". "/>
+      <text macro="issued-year" suffix=". "/>
+      <text variable="title" suffix=". "/>
+      <text variable="container-title" font-style="italic"/>
+      <text macro="doi-or-url" prefix=". "/>
+    </group>
+  </macro>
+
+  <citation collapse="citation-number" after-collapse-delimiter=",">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter=",">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+
+  <bibliography hanging-indent="true" entry-spacing="0" line-spacing="1">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+      <choose>
+        <if type="article-journal article-magazine article-newspaper" match="any">
+          <text macro="journal-article"/>
+        </if>
+        <else-if type="paper-conference">
+          <text macro="conference-paper"/>
+        </else-if>
+        <else-if type="book">
+          <text macro="book"/>
+        </else-if>
+        <else-if type="chapter">
+          <text macro="chapter"/>
+        </else-if>
+        <else-if type="webpage post post-weblog" match="any">
+          <text macro="webpage"/>
+        </else-if>
+        <else-if type="thesis">
+          <text macro="thesis"/>
+        </else-if>
+        <else-if type="report">
+          <text macro="report"/>
+        </else-if>
+        <else>
+          <text macro="generic"/>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
