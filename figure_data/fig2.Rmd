@@ -1,0 +1,305 @@
+---
+title: "TCM-ES Figure 2: source-data reproduction"
+output:
+  html_document:
+    toc: true
+    self_contained: true
+---
+
+These reports redraw the deposited numerical source data. Publication artwork was
+manually styled in Adobe Illustrator; exact appearance is not a reproducibility target.
+No model training or example-data regeneration is performed. Paths are relative to
+this Rmd file. All displayed errors are identified explicitly. Unavailable manuscript
+statistics are not inferred. Each plot is also exported to `output/` as PNG/PDF/SVG.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = FALSE)
+# Set RETICULATE_PYTHON to the desired Python executable before rendering.
+# R packages required: rmarkdown, knitr, reticulate. Python requirements are at root.
+```
+
+```{python python-setup}
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import t
+
+# All constants below control display only, unless explicitly described otherwise.
+DPI = 180
+PALETTE = ["#4C78A8", "#54A24B", "#C44E52", "#B279A2", "#F58518"]
+GROUP_WIDTH = 0.8
+POINT_SIZE = 10
+POINT_ALPHA = 0.35
+OUTPUT = Path("output")
+OUTPUT.mkdir(exist_ok=True)
+plt.rcParams.update({"font.size": 9, "svg.fonttype": "none", "pdf.fonttype": 42})
+
+def read_table(path, numeric=(), keys=()):
+    # Missing values, non-finite values and duplicate keys are errors, never dropped.
+    df = pd.read_csv(path)
+    if df.empty or df.isna().any().any():
+        raise ValueError(f"Empty table or missing value: {path}")
+    for col in numeric:
+        df[col] = pd.to_numeric(df[col], errors="raise")
+        if not np.isfinite(df[col].to_numpy(dtype=float)).all():
+            raise ValueError(f"Non-finite values: {path}, {col}")
+    if keys and df.duplicated(list(keys)).any():
+        raise ValueError(f"Duplicate keys: {path}, {keys}")
+    return df
+
+def nonnegative(values):
+    if np.any(np.asarray(values, dtype=float) < 0):
+        raise ValueError("Negative uncertainty or count")
+
+def save(fig, name):
+    for ax in fig.axes:
+        if ax.name != "3d":
+            ax.spines[["top", "right"]].set_visible(False)
+    # Reserve space for the external benchmark legend when present.
+    fig.tight_layout(rect=(0, 0.22, 1, 1) if fig.legends else (0, 0, 1, 1))
+    for ext in ("png", "pdf", "svg"):
+        fig.savefig(OUTPUT / f"{name}.{ext}", dpi=DPI, bbox_inches="tight")
+    plt.show()
+    plt.close(fig)
+```
+
+## 2A module shares
+
+Observed bars use `repeat_mean_column_share` ± `repeat_sd_column_share` (SD across training repeats). Every deposited top-k is shown separately; no top-k is selected. Permutation summaries are separate charts with their supplied SD, not confidence intervals. The pairwise Holm test table is retained without recomputing tests. `2A.csv` is an exact duplicate of the permutation summary and is retained for traceability.
+
+```{python 2a}
+obs = read_table("2A/repeat_go_module_axis_mean_sd_by_topk.csv",
+    ["top_k","pc","repeat_mean_column_share","repeat_sd_column_share"], ["top_k","module","pc"])
+null = read_table("2A/permutation_axis_summary.csv",
+    ["top_k","pc","mean_column_share","sd_column_share"], ["source","top_k","module","pc"])
+if not pd.read_csv("2A.csv").equals(null):
+    raise ValueError("2A.csv differs from the deposited permutation summary")
+
+def shares_chart(data, mean, sd, title, name):
+    modules = list(data.module.unique())
+    pcs = sorted(data.pc.unique())
+    fig, ax = plt.subplots(figsize=(7,4))
+    width = GROUP_WIDTH / len(modules)
+    for i, module in enumerate(modules):
+        rows = data.loc[data.module == module].set_index("pc").loc[pcs]
+        nonnegative(rows[sd])
+        ax.bar(np.arange(len(pcs))+(i-(len(modules)-1)/2)*width, rows[mean],
+               yerr=rows[sd], width=width, capsize=3, label=module)
+    ax.set(xticks=range(len(pcs)), xticklabels=[f"PC{pc}" for pc in pcs],
+           ylabel="Column share (mean ± SD)", title=title)
+    ax.legend(fontsize=8)
+    save(fig,name)
+
+for k, group in obs.groupby("top_k", sort=True):
+    shares_chart(group, "repeat_mean_column_share", "repeat_sd_column_share",
+                 f"Observed repeats; top-k={k}", f"2A_observed_top{k}")
+for (source,k), group in null.groupby(["source","top_k"], sort=True):
+    shares_chart(group,"mean_column_share","sd_column_share",
+                 f"{source}; top-k={k}",f"2A_{source}_top{k}")
+print(pd.read_csv("2A/permutation_pairwise_paired_t_holm.csv").to_string(index=False))
+```
+
+## 2E permutation error definition
+
+The supplied protein control contains one value for each of five PPI groups in each of 1,000 permutations. The control is summarized with an **unweighted mean across permutations ± sample SD across permutation means (`ddof=1`)**. It is not SEM, the mean of the within-permutation SEM column, or a confidence interval. All permutations contribute equally; pair counts are not used as weights. The same supplied control is shown on each observed model chart for visual reference, without claiming model-specific permutation tests. The summary is exported to `output/2E_permutation_mean_sd.csv`.
+
+```{python 2e-null-summary}
+PERMUTATION_SD_DDOF = 1  # Sample SD: denominator is n_permutations - 1.
+PERMUTATION_COLOR = "#888888"
+
+def protein_null_summary(data, ddof):
+    if ddof != 1:
+        raise ValueError("This report specifies sample SD with ddof=1")
+    if data.empty or data.duplicated(["permutation","group_id"]).any():
+        raise ValueError("Empty or duplicate permutation/group data")
+    if data[["permutation","group_id","ppi_group","mean"]].isna().any().any():
+        raise ValueError("Missing permutation-group data")
+    if not np.isfinite(data["mean"].to_numpy(dtype=float)).all():
+        raise ValueError("Non-finite permutation mean")
+    # A missing group in any permutation must fail, not change the effective sample.
+    matrix=data.pivot(index="permutation",columns="group_id",values="mean")
+    if matrix.isna().any().any() or len(matrix) < 2:
+        raise ValueError("Need at least two complete permutations with identical groups")
+    if data.groupby("group_id")["ppi_group"].nunique().ne(1).any():
+        raise ValueError("PPI labels differ across permutations")
+    if data[["group_id","ppi_group"]].drop_duplicates().ppi_group.duplicated().any():
+        raise ValueError("PPI group labels must be one-to-one with group IDs")
+    rows=[]
+    for group_id,group in data.groupby("group_id",sort=True):
+        rows.append({"group_id":group_id,"ppi_group":str(group.ppi_group.iloc[0]),
+                     "null_mean":float(group["mean"].mean()),
+                     "null_sd":float(group["mean"].std(ddof=ddof)),
+                     "n_permutations":len(group)})
+    return pd.DataFrame(rows)
+
+permutation_protein = read_table("2B–E/E_permutation_protein_group_data.csv",
+    ["group_id","mean","sem"],["permutation","group_id"])
+if permutation_protein.null_type.nunique() != 1:
+    raise ValueError("Multiple null models require separate summaries")
+protein_control = protein_null_summary(permutation_protein, PERMUTATION_SD_DDOF)
+protein_control.to_csv(OUTPUT/"2E_permutation_mean_sd.csv",index=False)
+print(protein_control.to_string(index=False))
+```
+
+## 2B-E PPI concordance
+
+Each deposited model is displayed separately. B–D-type plots retain source `analysis` names because panel letter ordering is not encoded in the CSV. Points show bin means ± supplied SEM. The OLS trend and Student-t 95% confidence interval of the fitted bin-mean trend reproduce the formula in `PPI_concordance_analysis.py::fit_line_with_ci`; these are not patient-level confidence intervals. E-type bars show protein group means ± supplied SEM. The grey overlaid control shows the permutation mean ± between-permutation SD, as defined above. The two error definitions are explicitly different. No bins are merged again.
+
+```{python 2b-e}
+CONFIDENCE = 0.95  # Original fit_line_with_ci confidence level.
+TREND_GRID = 200  # Original display interpolation grid; not a sample count.
+
+def bin_trend(x, y):
+    # Original unweighted OLS on already aggregated bin means, made fail-fast.
+    x, y = np.asarray(x,float), np.asarray(y,float)
+    if len(x) < 3 or len(x) != len(y) or not np.isfinite([x,y]).all():
+        raise ValueError("OLS needs at least three finite paired bins")
+    sxx = np.sum((x-x.mean())**2)
+    if sxx <= 0:
+        raise ValueError("OLS requires variation in bin x coordinates")
+    slope = np.sum((x-x.mean())*(y-y.mean())) / sxx
+    intercept = y.mean()-slope*x.mean()
+    dof = len(x)-2  # Two fitted parameters: intercept and slope.
+    mse = np.sum((y-intercept-slope*x)**2)/dof
+    grid = np.linspace(x.min(),x.max(),TREND_GRID)
+    fitted = intercept+slope*grid
+    se = np.sqrt(mse*(1/len(x)+(grid-x.mean())**2/sxx))
+    delta = t.ppf((1+CONFIDENCE)/2,dof)*se
+    return grid, fitted, fitted-delta, fitted+delta
+
+bins = read_table("2B–E/B–D_observed_module_percentile_binned_data.csv",
+    ["bin_id","x_mean","y_mean","y_sem","count"], ["model","analysis","bin_id"])
+protein = read_table("2B–E/E_observed_protein_percentile_group_data.csv",
+    ["group_id","mean","sem","count"], ["model","analysis","group_id"])
+if set(bins.model) != set(protein.model):
+    raise ValueError("Module and protein model sets differ")
+analyses = list(bins.analysis.unique())
+for model in bins.model.unique():
+    fig, axes = plt.subplots(1,len(analyses)+1,figsize=(16,4))
+    for ax, analysis in zip(axes, analyses):
+        d = bins.loc[(bins.model==model)&(bins.analysis==analysis)].sort_values("bin_id")
+        nonnegative(d.y_sem)
+        ax.errorbar(d.x_mean,d.y_mean,yerr=d.y_sem,fmt="o",capsize=2)
+        grid, mean, lo, hi = bin_trend(d.x_mean,d.y_mean)
+        ax.plot(grid,mean)
+        ax.fill_between(grid,lo,hi,alpha=0.2)
+        ax.set(title=analysis,xlabel="Within-model distance percentile",ylabel="Standardized PPI separation")
+    d = protein.loc[protein.model==model].sort_values("group_id")
+    nonnegative(d["sem"])
+    control = protein_control.set_index("group_id").loc[d.group_id].reset_index()
+    if control.ppi_group.tolist() != d.ppi_group.astype(str).tolist():
+        raise ValueError("Observed and permutation PPI group labels differ")
+    positions=np.arange(len(d))
+    axes[-1].bar(positions,d["mean"],yerr=d["sem"],capsize=3,label="Observed mean ± SEM")
+    axes[-1].errorbar(positions,control.null_mean,yerr=control.null_sd,
+                     color=PERMUTATION_COLOR,fmt="o-",markersize=3,capsize=3,
+                     linewidth=1,label="Permutation mean ± SD")
+    axes[-1].set(xticks=positions,xticklabels=d.ppi_group.astype(str),
+                 title="protein_protein",xlabel="PPI shortest-path group",ylabel="Embedding distance percentile")
+    axes[-1].legend(fontsize=7,frameon=False,loc="upper center",bbox_to_anchor=(0.5,-0.20))
+    fig.suptitle(model)
+    save(fig,f"2B-E_{model}")
+```
+
+## 2B-E permutation references
+
+The module reference panels use the deposited null mean and 2.5%–97.5% quantile envelope, separately from observed models. Protein references use the same permutation mean ± between-permutation sample SD as the observed-chart overlays; no individual-curve fan or null confidence interval is drawn. The raw module permutation table is retained as source data.
+
+```{python 2b-e-permutations}
+null = read_table("2B–E/B–D_permutation_module_reference_envelopes.csv",
+    ["bin_id","x_mean","null_mean","null_q025","null_q975"], ["analysis","bin_id"])
+fig, axes = plt.subplots(1,null.analysis.nunique(),figsize=(12,4))
+for ax, (analysis,d) in zip(axes,null.groupby("analysis",sort=False)):
+    d=d.sort_values("bin_id")
+    if (d.null_q025>d.null_q975).any():
+        raise ValueError("Reversed null quantiles")
+    ax.plot(d.x_mean,d.null_mean)
+    ax.fill_between(d.x_mean,d.null_q025,d.null_q975,alpha=0.2)
+    ax.set(title=analysis,xlabel="Within-model distance percentile",ylabel="Null standardized PPI separation")
+save(fig,"2B-D_permutation_envelopes")
+fig, ax = plt.subplots(figsize=(6,4))
+positions=np.arange(len(protein_control))
+ax.errorbar(positions,protein_control.null_mean,yerr=protein_control.null_sd,
+            fmt="o-",color=PERMUTATION_COLOR,capsize=4,linewidth=1.2)
+ax.set(xticks=positions,xticklabels=protein_control.ppi_group,
+       xlabel="PPI shortest-path group",ylabel="Null embedding distance percentile",
+       title="Permutation mean ± SD (across permutations)")
+save(fig,"2E_permutations")
+```
+
+## 2F network
+
+Every deposited edge, endpoint, weight and overlap flag is retained. Edge-list data do not encode isolated nodes. With author approval, a seeded spring layout replaces the manual Illustrator positions: coordinates have no biomedical meaning. Layout uses unweighted connectivity (`weight=None`), preventing layout distance from being mistaken for the deposited edge weight. As requested, grey edges denote shared genes or symptoms (`True`) and red edges denote no overlap (`False`). Edge width increases linearly with the original Weight within a bounded display range of 0.6–1.8 points. This preserves weight ordering without extreme widths; weights themselves are never changed. No threshold is imposed. Nodes are numbered for legibility, with the complete name key printed below and exported alongside coordinates.
+
+```{python 2f}
+import networkx as nx
+from matplotlib.lines import Line2D
+NETWORK_SEED = 42  # Arbitrary display-only seed for repeatable positions.
+NETWORK_ITERATIONS = 200  # Display layout iterations, not statistical iterations.
+NODE_SIZE = 120
+EDGE_WIDTH_MIN = 0.6  # Points; readable thin lines for this 12-inch diagram.
+EDGE_WIDTH_MAX = 1.8  # Points; at most 3x the minimum to avoid visual domination.
+OVERLAP_COLOR = "#929292"
+NO_OVERLAP_COLOR = "#E53935"
+
+def edge_widths(weights, width_min, width_max):
+    # Display-only affine mapping over all deposited edge weights:
+    # width = min_width + (max_width-min_width)*(weight-min_weight)/(max_weight-min_weight).
+    # This strictly preserves ordering for variable weights; there is no threshold,
+    # clipping, weight transformation in the graph, or change to the spring layout.
+    values = np.asarray(weights, dtype=float)
+    if values.ndim != 1 or len(values) == 0 or not np.isfinite(values).all():
+        raise ValueError("Edge weights must be a nonempty finite vector")
+    if not np.isfinite([width_min,width_max]).all() or not 0 < width_min <= width_max:
+        raise ValueError("Invalid positive display-width bounds")
+    span = values.max()-values.min()
+    if span == 0:
+        # Equal scientific weights must produce equal widths; midpoint is display only.
+        return np.full(values.shape, (width_min+width_max)/2)
+    return width_min+(width_max-width_min)*(values-values.min())/span
+
+def edge_graph(d):
+    # Undirected representation of the symmetric pairwise edge table.
+    keys = [tuple(sorted((a,b))) for a,b in zip(d.Node1,d.Node2)]
+    if len(set(keys)) != len(keys):
+        raise ValueError("Duplicate undirected edges; refuse implicit merging")
+    if (d.Node1==d.Node2).any():
+        raise ValueError("Unexpected self-edge")
+    if not d["Gene/Symptom overlap"].isin([True,False]).all():
+        raise ValueError("Overlap flag must be boolean")
+    graph=nx.Graph()
+    for a,b,w,flag in d.itertuples(index=False,name=None):
+        graph.add_edge(a,b,weight=float(w),overlap=bool(flag))
+    return graph
+
+d = read_table("2F.csv",["Weight"])
+graph = edge_graph(d)
+pos = nx.spring_layout(graph,seed=NETWORK_SEED,iterations=NETWORK_ITERATIONS,weight=None)
+labels = {node:str(i) for i,node in enumerate(sorted(graph.nodes),1)}
+fig, ax = plt.subplots(figsize=(12,10))
+nx.draw_networkx_nodes(graph,pos,node_size=NODE_SIZE,node_color="#dce9f3",ax=ax)
+nx.draw_networkx_labels(graph,pos,labels=labels,font_size=6,ax=ax)
+all_edges = list(graph.edges())
+widths = edge_widths([graph[a][b]["weight"] for a,b in all_edges], EDGE_WIDTH_MIN, EDGE_WIDTH_MAX)
+colors = [OVERLAP_COLOR if graph[a][b]["overlap"] else NO_OVERLAP_COLOR for a,b in all_edges]
+nx.draw_networkx_edges(graph,pos,edgelist=all_edges,edge_color=colors,width=widths,style="solid",ax=ax)
+# Export exact visual encoding so that width mapping is fully auditable.
+pd.DataFrame([{"Node1":a,"Node2":b,"Weight":graph[a][b]["weight"],
+               "Gene/Symptom overlap":graph[a][b]["overlap"],"display_width_pt":width,
+               "display_color":color} for (a,b),width,color in zip(all_edges,widths,colors)]).to_csv(
+    OUTPUT/"2F_edge_display_mapping.csv",index=False)
+weight_examples = np.linspace(d.Weight.min(),d.Weight.max(),3)
+example_widths = edge_widths(weight_examples, EDGE_WIDTH_MIN, EDGE_WIDTH_MAX)
+handles = [Line2D([0],[0],color=color,label=label) for color,label in [
+    (OVERLAP_COLOR,"Shared genes or symptoms"),(NO_OVERLAP_COLOR,"No shared genes or symptoms")]]
+handles += [Line2D([0],[0],color="#505050",linewidth=w,label=f"Weight {value:.3f}")
+            for value,w in zip(weight_examples,example_widths)]
+ax.legend(handles=handles,loc="upper left",frameon=False)
+ax.set_title(f"{graph.number_of_nodes()} nodes; {graph.number_of_edges()} deposited edges")
+ax.axis("off")
+save(fig,"2F")
+key = pd.DataFrame([{"node_id":labels[node],"node_name":node,"display_x":pos[node][0],"display_y":pos[node][1]} for node in sorted(graph.nodes)])
+key.to_csv(OUTPUT/"2F_node_key_and_display_positions.csv",index=False)
+print(key[["node_id","node_name"]].to_string(index=False))
+```

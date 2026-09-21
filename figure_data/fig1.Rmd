@@ -1,0 +1,319 @@
+---
+title: "TCM-ES Figure 1: source-data reproduction"
+output:
+  html_document:
+    toc: true
+    self_contained: true
+---
+
+These reports redraw the deposited numerical source data. Publication artwork was
+manually styled in Adobe Illustrator; exact appearance is not a reproducibility target.
+No model training or example-data regeneration is performed. Paths are relative to
+this Rmd file. All displayed errors are identified explicitly. Unavailable manuscript
+statistics are not inferred. Each plot is also exported to `output/` as PNG/PDF/SVG.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = FALSE)
+# Set RETICULATE_PYTHON to the desired Python executable before rendering.
+# R packages required: rmarkdown, knitr, reticulate. Python requirements are at root.
+```
+
+```{python python-setup}
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import t, gaussian_kde
+
+# All constants below control display only, unless explicitly described otherwise.
+DPI = 180
+PALETTE = ["#4C78A8", "#54A24B", "#C44E52", "#B279A2", "#F58518"]
+GROUP_WIDTH = 0.8
+POINT_SIZE = 10
+POINT_ALPHA = 0.35
+OUTPUT = Path("output")
+OUTPUT.mkdir(exist_ok=True)
+plt.rcParams.update({"font.size": 9, "svg.fonttype": "none", "pdf.fonttype": 42})
+
+def read_table(path, numeric=(), keys=()):
+    # Missing values, non-finite values and duplicate keys are errors, never dropped.
+    df = pd.read_csv(path)
+    if df.empty or df.isna().any().any():
+        raise ValueError(f"Empty table or missing value: {path}")
+    for col in numeric:
+        df[col] = pd.to_numeric(df[col], errors="raise")
+        if not np.isfinite(df[col].to_numpy(dtype=float)).all():
+            raise ValueError(f"Non-finite values: {path}, {col}")
+    if keys and df.duplicated(list(keys)).any():
+        raise ValueError(f"Duplicate keys: {path}, {keys}")
+    return df
+
+def nonnegative(values):
+    if np.any(np.asarray(values, dtype=float) < 0):
+        raise ValueError("Negative uncertainty or count")
+
+def save(fig, name):
+    for ax in fig.axes:
+        if ax.name != "3d":
+            ax.spines[["top", "right"]].set_visible(False)
+    # Reserve space for the external benchmark legend when present.
+    fig.tight_layout(rect=(0, 0.22, 1, 1) if fig.legends else (0, 0, 1, 1))
+    for ext in ("png", "pdf", "svg"):
+        fig.savefig(OUTPUT / f"{name}.{ext}", dpi=DPI, bbox_inches="tight")
+    plt.show()
+    plt.close(fig)
+```
+
+## 1A and 1B main artwork
+
+No explicitly panel-labelled source data for 1A or the main 1B artwork are deposited. These elements are not invented or regenerated from public example embeddings. The three supplied 1B density insets are reproduced below.
+
+## 1B inset
+
+All three PC rank tables are now supplied in `1B/PC1.csv`, `1B/PC2.csv`, and `1B/PC3.csv`, converted from their explicitly named Excel sheets. Each contains 780 herbs. The former `1B_insets.csv` is numerically identical to PC3 and is retained for provenance, not plotted as a fourth dataset. Source category labels are retained (`Mild` corresponds visually to the manuscript's neutral category, but is not renamed).
+
+The requested horizontal, stacked density display uses an equal-weight Gaussian KDE within each category and Scott's automatic bandwidth: in one dimension, `h = sample_sd * n**(-1/5)`. Each curve has total area one on the full real line, independent of category sample size; all panels share the same rank and density scales. This is a smoothing estimate of the empirical rank distribution, not raw frequency, and its peak depends on bandwidth. No reflection/boundary correction or peak normalization is applied. Gaussian tails can extend beyond observed ranks; only the observed rank range is displayed, without renormalizing the clipped tails. The raw observations are shown as a light rug and remain unchanged.
+
+```{python 1b}
+KDE_BANDWIDTH = "scott"  # Automatic n^(-1/5) factor, not manually tuned to a desired peak.
+KDE_GRID_POINTS = 512  # Evaluation resolution only; does not change the fitted density.
+DENSITY_Y_HEADROOM = 1.25  # Display space above the highest density for category labels.
+HERB_DENSITY_COLORS = {"Cold & Cool":"#00A6D6", "Mild":"#FFBE00", "Warm & Hot":"#D80027"}
+
+def rank_kde(values, bandwidth):
+    values = np.asarray(values, dtype=float)
+    if values.ndim != 1 or len(values) < 2 or not np.isfinite(values).all():
+        raise ValueError("KDE requires at least two finite ranks")
+    if np.ptp(values) <= 0:
+        raise ValueError("KDE is undefined for a constant rank vector")
+    return gaussian_kde(values, bw_method=bandwidth)
+
+PC_TABLES = {"PC1":"1B/PC1.csv", "PC2":"1B/PC2.csv", "PC3":"1B/PC3.csv"}
+groups = list(HERB_DENSITY_COLORS)
+tables = {pc:read_table(path,["rank"],["herbs"]) for pc,path in PC_TABLES.items()}
+reference_categories = tables["PC1"].set_index("herbs").categories.sort_index()
+for pc,d in tables.items():
+    if set(d.categories) != set(groups):
+        raise ValueError(f"Unexpected herb-nature category in {pc}")
+    if not d.set_index("herbs").categories.sort_index().equals(reference_categories):
+        raise ValueError(f"Herb identities or nature categories differ across PCs: {pc}")
+rank_min=min(d["rank"].min() for d in tables.values())
+rank_max=max(d["rank"].max() for d in tables.values())
+grid=np.linspace(rank_min,rank_max,KDE_GRID_POINTS)
+fig, axes = plt.subplots(len(groups),len(tables),figsize=(13,7),sharex=True,sharey=True)
+curve_rows=[]
+for col,(pc,d) in enumerate(tables.items()):
+    for row,group in enumerate(groups):
+        ax=axes[row,col]
+        values=d.loc[d.categories==group,"rank"].to_numpy()
+        kde=rank_kde(values,KDE_BANDWIDTH)
+        density=kde(grid)
+        color=HERB_DENSITY_COLORS[group]
+        ax.fill_between(grid,0,density,color=color,alpha=0.9)
+        ax.plot(grid,density,color="#252525",linewidth=0.9)
+        ax.plot(values,np.zeros(len(values)),"|",color=color,alpha=0.2,markersize=3)
+        ax.text(0.98,0.90,f"{group} (n={len(values)})",transform=ax.transAxes,ha="right",va="top",fontsize=8)
+        if col==0:ax.set_ylabel("Density")
+        if row==0:ax.set_title(pc)
+        if row==len(groups)-1:ax.set_xlabel("Projection rank")
+        curve_rows.extend({"PC":pc,"category":group,"projection_rank_grid":x,"density":y,
+                           "sample_n":len(values),"bandwidth_rank_units":float(np.sqrt(kde.covariance[0,0]))}
+                          for x,y in zip(grid,density))
+axes[0,0].set_ylim(0,DENSITY_Y_HEADROOM*max(row["density"] for row in curve_rows))
+axes[0,0].set_xlim(rank_min,rank_max)
+fig.suptitle("Herb-nature rank distributions across three principal components")
+pd.DataFrame(curve_rows).to_csv(OUTPUT/"1B_density_curves.csv",index=False)
+save(fig,"1B_inset")
+```
+
+## 1C syndrome coordinates
+
+The Excel sheet names identify the two datasets: `1C/symptom.csv` contains 1,262 symptom-pattern coordinates and `1C/formula.csv` contains 610 formula coordinates. Both datasets are plotted in full; their unequal row counts are not resolved by filtering, duplication or an assumed one-to-one match. The source header is `syndrome` in the symptom table and `Syndrome` in the formula table; neither CSV header is altered. All deposited PC1/PC2/PC3 coordinates are used without re-fitting or rescaling PCA. Common axis limits serve display comparison only. Squares represent symptom patterns, circles represent formulas.
+
+```{python 1c}
+EMBEDDING_TABLES = [
+    ("Symptom-pattern embedding","1C/symptom.csv","syndrome","s"),
+    ("Formula embedding","1C/formula.csv","Syndrome","o"),
+]
+SYNDROME_COLORS = {
+    "Stomach Cold":"#0000FF", "Spleen Cold":"#6485F4", "Heart Heat":"#A00000",
+    "Lung Heat":"#FF0000", "Liver Blood deficiency":"#FF9900",
+    "Kidney Qi deficiency":"#008800", "Exterior wind":"#00C8D8",
+}  # Display colours follow the supplied manuscript; source labels are unchanged.
+embedding_data=[read_table(path,["PC1","PC2","PC3"]) for _,path,_,_ in EMBEDDING_TABLES]
+limits={pc:(min(d[pc].min() for d in embedding_data),max(d[pc].max() for d in embedding_data))
+        for pc in ["PC1","PC2","PC3"]}
+fig=plt.figure(figsize=(9,10))
+for index,((title,path,syndrome_column,marker),d) in enumerate(zip(EMBEDDING_TABLES,embedding_data),1):
+    if set(d[syndrome_column])!=set(SYNDROME_COLORS):
+        raise ValueError(f"Unexpected syndrome labels in {path}")
+    ax=fig.add_subplot(2,1,index,projection="3d")
+    for label,color in SYNDROME_COLORS.items():
+        group=d.loc[d[syndrome_column]==label]
+        ax.scatter(group.PC1,group.PC2,group.PC3,s=POINT_SIZE,alpha=0.65,
+                   marker=marker,facecolors="none",edgecolors=color,label=label)
+    ax.set(xlabel="PC1",ylabel="PC2",zlabel="PC3",title=f"{title} (n={len(d)})",
+           xlim=limits["PC1"],ylim=limits["PC2"],zlim=limits["PC3"])
+    if index==1:ax.legend(loc="upper left",bbox_to_anchor=(1,1),fontsize=8)
+save(fig,"1C")
+```
+
+## 1D external benchmark
+
+Grouped precision, recall and F1 bars follow `formula_prediction_external.py`. All nine deposited models are included in source order: the old function filters display names that no longer match this CSV. Literature benchmark values are reported comparisons, not new experiments. No error bars are supplied.
+
+```{python 1d}
+metrics = [f"{m}@{k}" for m in ("P", "R", "F1") for k in (5,10,20)]
+d = read_table("1D/combined_comparsion.csv", metrics, ["Model"])
+if not ((d[metrics] >= 0) & (d[metrics] <= 1)).all().all():
+    raise ValueError("Benchmark metric outside [0,1]")
+fig, axes = plt.subplots(1,3,figsize=(13,5))
+width = GROUP_WIDTH / len(d)
+for ax, metric, title in zip(axes, ["P","R","F1"], ["Precision","Recall","F1"]):
+    for i, (_, row) in enumerate(d.iterrows()):
+        ax.bar(np.arange(3)+(i-(len(d)-1)/2)*width,
+               row[[f"{metric}@{k}" for k in (5,10,20)]].to_numpy(float),
+               width=width, label=row.Display_model)
+    ax.set(xticks=range(3), xticklabels=[5,10,20], xlabel="Recommendation cutoff k", ylabel=title)
+handles, labels = axes[0].get_legend_handles_labels()
+fig.legend(handles, labels, loc="outside lower center", ncol=3, fontsize=7)
+fig.subplots_adjust(bottom=0.30)
+save(fig,"1D")
+```
+
+## 1E distance distributions
+
+The three source sheets are exported separately: COVID-19 (1,454 pairs), general (2,488 pairs), and long COVID (203 pairs). Every supplied value is used. The author confirmed that `prescription_randomsymptoms_distance` represents **unalleviated symptoms (U) in general** and **other symptoms (O) in long COVID**. This explicit label mapping is applied only to plot labels; original CSV column names and numbers remain unchanged. A denotes alleviated symptoms. Violin smoothing keeps the existing Scott bandwidth. Boxes show quartiles and Tukey whiskers; no missing significance annotations are reconstructed.
+
+```{python 1e}
+# Source columns intentionally retained. Clinical meanings confirmed by the author.
+COHORTS = [
+    ("COVID-19","1E/COVID.csv",["mean_distance_alleviated","mean_distance_unalleviated"],["A","U"]),
+    ("General","1E/general.csv",["prescription_symptoms_distance","prescription_randomsymptoms_distance"],["A","U"]),
+    ("Long COVID","1E/long_COVID.csv",["prescription_symptoms_distance","prescription_randomsymptoms_distance"],["A","O"]),
+]
+DISTANCE_COLORS=["#FF9900","#D8D8D8"]
+BOX_WHISKERS=1.5  # Tukey convention, matching the existing boxplot.
+fig,axes=plt.subplots(1,len(COHORTS),figsize=(10,4),sharey=True)
+cohort_rows=[]
+for ax,(title,path,columns,labels) in zip(axes,COHORTS):
+    d=read_table(path,columns)
+    values=[d[column].to_numpy() for column in columns]
+    for value in values:nonnegative(value)
+    bodies=ax.violinplot(values,showextrema=False,bw_method="scott")
+    for body,color in zip(bodies["bodies"],DISTANCE_COLORS):
+        body.set_facecolor(color);body.set_edgecolor("black");body.set_alpha(1)
+    ax.boxplot(values,widths=0.2,showfliers=False,whis=BOX_WHISKERS,patch_artist=True,
+               boxprops={"facecolor":"white","edgecolor":"black"},medianprops={"color":"black"})
+    ax.set(xticks=[1,2],xticklabels=labels,title=f"{title} (n={len(d)})")
+    cohort_rows.append({"cohort":title,"n_pairs":len(d),"first_label":labels[0],"second_label":labels[1],
+                        "first_mean":float(values[0].mean()),"second_mean":float(values[1].mean()),
+                        "mean_second_minus_first":float((values[1]-values[0]).mean())})
+axes[0].set_ylabel("Embedding distance")
+axes[0].set_ylim(bottom=0)
+pd.DataFrame(cohort_rows).to_csv(OUTPUT/"1E_cohort_display_summary.csv",index=False)
+save(fig,"1E")
+```
+
+## 1F bidirectional retrieval
+
+Both worksheets from `1f.xlsx` are supplied as separate CSV files. The upper panel
+uses `initial_symptom_formula_sampled` (5,090 cases); the lower panel uses
+`set_level_sampled_retrieval_sum` (3,896 cases), whose values are identical to the
+original `1F.csv`. Both use 50 candidates and 10 repeats. Unequal case counts are
+retained. Only Hit@1, Hit@5 and Hit@10 are plotted, matching the manuscript.
+
+Both panels show **mean ± SEM across repeats**. The upper worksheet has SD but no
+SEM column: SEM is explicitly calculated as `SD / sqrt(n_repeats)`. The lower
+panel uses its supplied SEM values. `ci95` is not used as SEM. Source model labels
+`Original` (upper) and `Original_encoder_set` (lower) are explicitly displayed as
+TCM-ES; original CSV labels are unchanged. Original means and uncertainties are
+never overwritten. The exact plotted values are exported to `output/1F_plot_data.csv`.
+
+```{python 1f}
+def sem_from_repeat_sd(sd, n_repeats):
+    # Standard error of a repeat mean; n is the repeat count, NOT the patient count.
+    sd, n = np.asarray(sd,dtype=float), np.asarray(n_repeats,dtype=float)
+    if not np.isfinite(sd).all() or not np.isfinite(n).all():
+        raise ValueError("SD and repeat counts must be finite")
+    if np.any(sd < 0) or np.any(n < 2) or np.any(n != np.floor(n)):
+        raise ValueError("Need nonnegative SD and integer repeat counts >= 2")
+    return sd / np.sqrt(n)
+
+RETRIEVAL_PANELS = [
+    ("Initial symptom-pattern to formula", "1F/initial_symptom_to_formula.csv", "Original", "derived"),
+    ("Formula to alleviated symptom-pattern", "1F/formula_to_alleviated_symptom.csv", "Original_encoder_set", "supplied"),
+]
+CUTOFFS = [1,5,10]  # Manuscript recommendation cutoffs; other supplied columns are retained in CSV.
+MODEL_COLORS = ["#007DB3", "#EFC45A", "#FF6548"]
+DISPLAY_MODELS = ["TCM-ES", "Co-occurrence SVD", "Co-occurrence graph"]
+fig, axes = plt.subplots(2,1,figsize=(7,7),sharey=True)
+plot_rows=[]
+for ax,(title,path,tcmes_source,error_source) in zip(axes,RETRIEVAL_PANELS):
+    metrics=[f"hit_at_{k}" for k in CUTOFFS]
+    error_cols=[m+("_sd" if error_source=="derived" else "_sem") for m in metrics]
+    d=read_table(path,metrics+error_cols+["n_repeats","n_cases","n_candidates"],["Source"])
+    model_order=[tcmes_source,"SVD baseline","Graph baseline"]
+    if set(d.Source)!=set(model_order):raise ValueError(f"Unexpected model names: {path}")
+    if not ((d[metrics]>=0)&(d[metrics]<=1)).all().all():raise ValueError("Hit rates outside [0,1]")
+    for column in ["n_repeats","n_cases","n_candidates"]:
+        if d[column].nunique()!=1:raise ValueError(f"Inconsistent {column} within {path}")
+    d=d.set_index("Source").loc[model_order]
+    width=GROUP_WIDTH/len(d)
+    for index,(source,row) in enumerate(d.iterrows()):
+        values=row[metrics].to_numpy(float)
+        raw_errors=row[error_cols].to_numpy(float)
+        nonnegative(raw_errors)
+        errors=sem_from_repeat_sd(raw_errors,row.n_repeats) if error_source=="derived" else raw_errors
+        ax.bar(np.arange(len(CUTOFFS))+(index-(len(d)-1)/2)*width,values,yerr=errors,
+               width=width,capsize=3,color=MODEL_COLORS[index],label=DISPLAY_MODELS[index])
+        plot_rows.extend({"direction":title,"source_model":source,"display_model":DISPLAY_MODELS[index],
+                          "n_cases":row.n_cases,"n_repeats":row.n_repeats,"n_candidates":row.n_candidates,
+                          "cutoff":k,"hit_rate":value,"sem":error,
+                          "sem_source":"SD / sqrt(n_repeats)" if error_source=="derived" else "supplied SEM"}
+                         for k,value,error in zip(CUTOFFS,values,errors))
+    ax.set(xticks=range(len(CUTOFFS)),xticklabels=[f"Hit@{k}" for k in CUTOFFS],
+           ylabel="Hit rate (mean ± SEM)",title=f"{title} (n={int(d.n_cases.iloc[0])})")
+    ax.legend(fontsize=8,frameon=False,loc="upper left")
+pd.DataFrame(plot_rows).to_csv(OUTPUT/"1F_plot_data.csv",index=False)
+save(fig,"1F")
+```
+
+## 1G adjusted improvement
+
+The author requested a descriptive ordinary least-squares line through all supplied adjusted patient-level values. The slope and intercept are estimated from these data without constraining the sign, and exported to `output/1G_descriptive_linear_fit.csv`. This is a fit to an already adjusted outcome, not a refit of the original covariate/formula-effects model in `COVID_condition_improvement_analysis.py`. Its missing covariates prevent reproducing the original model-based uncertainty: no replacement confidence band or P value is shown.
+
+```{python 1g}
+d = read_table("1G.csv", ["within_formula_z_distance","adjusted_improvement"], ["case_id"])
+def descriptive_ols(x, y):
+    # Least squares with an intercept: minimize sum((y - intercept - slope*x)**2).
+    # No sign constraint, data selection, reweighting or new covariate adjustment.
+    x, y = np.asarray(x, dtype=float), np.asarray(y, dtype=float)
+    if x.ndim != 1 or y.shape != x.shape or len(x) < 2:
+        raise ValueError("OLS requires matching one-dimensional paired arrays")
+    if not np.isfinite(x).all() or not np.isfinite(y).all():
+        raise ValueError("OLS requires finite values")
+    sxx = np.sum((x - x.mean())**2)
+    if sxx <= 0:
+        raise ValueError("OLS requires variation in x")
+    slope = np.sum((x-x.mean())*(y-y.mean())) / sxx
+    intercept = y.mean() - slope*x.mean()
+    return float(intercept), float(slope)
+
+intercept, slope = descriptive_ols(d.within_formula_z_distance, d.adjusted_improvement)
+LINE_COLOR = "#202020"
+SCATTER_COLOR = "#F39C12"
+fig, ax = plt.subplots(figsize=(6,4))
+ax.scatter(d.within_formula_z_distance, d.adjusted_improvement,
+           s=POINT_SIZE, alpha=POINT_ALPHA, color=SCATTER_COLOR)
+# Two endpoints suffice for an exact straight line over the entire observed range.
+x_line = np.array([d.within_formula_z_distance.min(), d.within_formula_z_distance.max()])
+ax.plot(x_line, intercept + slope*x_line, color=LINE_COLOR, linewidth=2,
+        label=f"Descriptive OLS: slope = {slope:.3f}")
+ax.legend(frameon=False)
+ax.set(xlabel="Within-formula standardized distance", ylabel="Deposited adjusted improvement")
+pd.DataFrame([{"n":len(d), "intercept":intercept, "slope":slope,
+               "method":"unweighted OLS on deposited adjusted outcomes; descriptive only"}]).to_csv(
+    OUTPUT/"1G_descriptive_linear_fit.csv", index=False)
+save(fig,"1G")
+```
