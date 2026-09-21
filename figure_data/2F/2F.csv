@@ -1,0 +1,187 @@
+﻿Node1,Node2,Weight,Gene/Symptom overlap
+"abnormalities, multiple",diabetes mellitus,0.614538252,TRUE
+"abnormalities, multiple",obesity,0.593542218,TRUE
+"abnormalities, multiple",sensation disorders,0.603596687,TRUE
+diabetes mellitus,lung neoplasms,0.607731223,TRUE
+diabetes mellitus,obesity,0.655420244,TRUE
+diabetes mellitus,sensation disorders,0.639889598,TRUE
+obesity,"diabetes mellitus, type 2",0.62460345,TRUE
+obesity,epilepsy,0.664914727,TRUE
+obesity,lung neoplasms,0.653150737,TRUE
+obesity,metabolic syndrome x,0.595739186,TRUE
+sensation disorders,retinitis pigmentosa,0.610958338,TRUE
+sensation disorders,urination disorders,0.611189187,FALSE
+lung neoplasms,"diabetes mellitus, type 2",0.622076988,TRUE
+lung neoplasms,metabolic syndrome x,0.604634762,TRUE
+epilepsy,arteriosclerosis,0.616968632,FALSE
+epilepsy,"cardiomyopathy, hypertrophic",0.622706652,TRUE
+epilepsy,lung neoplasms,0.624248982,FALSE
+epilepsy,neuromuscular diseases,0.645457685,TRUE
+metabolic syndrome x,"diabetes mellitus, type 2",0.725020468,TRUE
+retinitis pigmentosa,parkinson disease,0.581762552,FALSE
+retinitis pigmentosa,vision disorders,0.580381095,TRUE
+adenocarcinoma,gastrointestinal diseases,0.533323646,TRUE
+adenocarcinoma,intestinal diseases,0.567456365,TRUE
+adenocarcinoma,ovarian neoplasms,0.521336973,TRUE
+gastrointestinal diseases,bacterial infections,0.519916952,TRUE
+gastrointestinal diseases,"colitis, ulcerative",0.600940943,TRUE
+gastrointestinal diseases,colonic diseases,0.616870582,TRUE
+gastrointestinal diseases,intestinal diseases,0.658601105,TRUE
+intestinal diseases,bacterial infections,0.64765662,TRUE
+intestinal diseases,"colitis, ulcerative",0.790046156,TRUE
+intestinal diseases,colonic diseases,0.83059448,TRUE
+intestinal diseases,nutrition disorders,0.581956565,TRUE
+ovarian neoplasms,"colitis, ulcerative",0.555686116,FALSE
+ovarian neoplasms,colonic diseases,0.540240765,TRUE
+ovarian neoplasms,"heart defects, congenital",0.547865391,FALSE
+bacterial infections,"colitis, ulcerative",0.674356818,TRUE
+bacterial infections,colonic diseases,0.691950321,TRUE
+bacterial infections,nutrition disorders,0.640735388,TRUE
+"colitis, ulcerative",biliary tract diseases,0.626119077,TRUE
+"colitis, ulcerative",colonic diseases,0.832880735,TRUE
+"colitis, ulcerative",nutrition disorders,0.607911766,TRUE
+colonic diseases,nutrition disorders,0.595626652,TRUE
+nutrition disorders,"infant, newborn, diseases",0.584071159,TRUE
+alzheimer disease,brain diseases,0.678733409,TRUE
+alzheimer disease,cerebrovascular disorders,0.652738869,TRUE
+alzheimer disease,dementia,0.817751467,TRUE
+alzheimer disease,epilepsy,0.616732419,TRUE
+alzheimer disease,multiple sclerosis,0.613033414,TRUE
+alzheimer disease,sleep disorders,0.591879785,TRUE
+brain diseases,dementia,0.696052432,TRUE
+brain diseases,epilepsy,0.630134225,TRUE
+cerebrovascular disorders,dementia,0.617619872,TRUE
+cerebrovascular disorders,macular degeneration,0.607081652,TRUE
+cerebrovascular disorders,multiple sclerosis,0.650182843,TRUE
+cerebrovascular disorders,muscular diseases,0.596350193,TRUE
+cerebrovascular disorders,sleep disorders,0.612852395,FALSE
+cerebrovascular disorders,spinal cord diseases,0.669049263,TRUE
+dementia,multiple sclerosis,0.589704335,TRUE
+dementia,sleep disorders,0.571868002,TRUE
+multiple sclerosis,macular degeneration,0.623025537,TRUE
+multiple sclerosis,sleep disorders,0.668459654,TRUE
+multiple sclerosis,spinal cord diseases,0.584087431,TRUE
+multiple sclerosis,vision disorders,0.575338364,TRUE
+sleep disorders,arthritis,0.577616334,TRUE
+sleep disorders,"arthritis, rheumatoid",0.62244153,TRUE
+macular degeneration,retinal diseases,0.717349649,TRUE
+macular degeneration,retinitis pigmentosa,0.599448085,TRUE
+macular degeneration,vision disorders,0.672826588,TRUE
+muscular diseases,cerebellar ataxia,0.621661186,TRUE
+muscular diseases,peripheral nervous system diseases,0.627893567,TRUE
+muscular diseases,spinal cord diseases,0.666564584,TRUE
+muscular diseases,spinal diseases,0.704654217,TRUE
+spinal cord diseases,spinal diseases,0.590502083,TRUE
+arteriosclerosis,dyskinesias,0.637671113,FALSE
+arteriosclerosis,"genital diseases, female",0.635336697,TRUE
+arteriosclerosis,kidney diseases,0.59605062,TRUE
+arteriosclerosis,neuromuscular diseases,0.673009992,FALSE
+arteriosclerosis,urination disorders,0.659649909,FALSE
+"cardiomyopathy, hypertrophic",breast neoplasms,0.653729737,FALSE
+"cardiomyopathy, hypertrophic",dyskinesias,0.614813864,FALSE
+"cardiomyopathy, hypertrophic",peripheral nervous system diseases,0.619637609,FALSE
+"cardiomyopathy, hypertrophic",urination disorders,0.622411013,FALSE
+neuromuscular diseases,cerebellar ataxia,0.666314364,TRUE
+neuromuscular diseases,heart arrest,0.710288405,FALSE
+arthritis,"arthritis, rheumatoid",0.661839008,TRUE
+amyotrophic lateral sclerosis,macular degeneration,0.617117286,FALSE
+amyotrophic lateral sclerosis,retinal degeneration,0.632969439,FALSE
+amyotrophic lateral sclerosis,retinal diseases,0.62141335,FALSE
+amyotrophic lateral sclerosis,retinitis pigmentosa,0.682890713,FALSE
+retinal degeneration,blood coagulation disorders,0.623732269,TRUE
+retinal degeneration,mouth diseases,0.625802279,FALSE
+retinal degeneration,retinal diseases,0.657459259,TRUE
+retinal degeneration,retinitis pigmentosa,0.625922501,TRUE
+retinal diseases,muscular diseases,0.60248071,TRUE
+blood coagulation disorders,mouth diseases,0.869853139,TRUE
+"anemia, hemolytic",cholestasis,0.669466734,TRUE
+"anemia, hemolytic",prostatic neoplasms,0.633448541,FALSE
+cholestasis,blood coagulation disorders,0.665041864,FALSE
+cholestasis,liver cirrhosis,0.62496841,TRUE
+cholestasis,liver diseases,0.62496841,TRUE
+cholestasis,mouth diseases,0.642416894,TRUE
+cholestasis,prostatic neoplasms,0.703979492,FALSE
+prostatic neoplasms,"arrhythmias, cardiac",0.709668934,FALSE
+prostatic neoplasms,blood coagulation disorders,0.660341024,TRUE
+prostatic neoplasms,liver cirrhosis,0.645567834,TRUE
+prostatic neoplasms,liver diseases,0.645567834,TRUE
+prostatic neoplasms,mouth diseases,0.645994604,TRUE
+liver cirrhosis,liver diseases,1,TRUE
+"arrhythmias, cardiac",blood coagulation disorders,0.659724593,FALSE
+"arrhythmias, cardiac","cardiomyopathy, hypertrophic",0.698592305,TRUE
+"arrhythmias, cardiac",cerebellar diseases,0.694648087,FALSE
+"arrhythmias, cardiac",esophageal diseases,0.692596853,TRUE
+"arrhythmias, cardiac",mouth diseases,0.673631966,FALSE
+"arrhythmias, cardiac",ocular motility disorders,0.716843128,FALSE
+cerebellar diseases,cerebellar ataxia,0.670409977,TRUE
+cerebellar diseases,esophageal diseases,0.69226104,FALSE
+cerebellar diseases,mouth diseases,0.669096232,FALSE
+cerebellar diseases,neurodegenerative diseases,0.689655602,TRUE
+cerebellar diseases,ocular motility disorders,0.723279059,TRUE
+cerebellar diseases,parkinsonian disorders,0.667657435,TRUE
+esophageal diseases,basal ganglia diseases,0.709335744,FALSE
+esophageal diseases,biliary tract diseases,0.656720519,FALSE
+esophageal diseases,coronary artery disease,0.646199048,TRUE
+esophageal diseases,ocular motility disorders,0.705639064,FALSE
+esophageal diseases,parkinsonian disorders,0.638718784,FALSE
+ocular motility disorders,biliary tract diseases,0.626794636,FALSE
+ocular motility disorders,cerebellar ataxia,0.646496415,TRUE
+ocular motility disorders,coronary disease,0.638952017,FALSE
+ocular motility disorders,neurodegenerative diseases,0.679286957,TRUE
+dyskinesias,breast neoplasms,0.60166347,FALSE
+dyskinesias,"genital diseases, female",0.643793941,FALSE
+dyskinesias,neuromuscular diseases,0.62898463,TRUE
+dyskinesias,peripheral nervous system diseases,0.615413666,TRUE
+dyskinesias,urination disorders,0.584178269,FALSE
+peripheral nervous system diseases,breast neoplasms,0.609811544,TRUE
+cerebellar ataxia,joint diseases,0.628890097,FALSE
+neurodegenerative diseases,coronary disease,0.652244628,TRUE
+neurodegenerative diseases,joint diseases,0.65803349,FALSE
+neurodegenerative diseases,parkinsonian disorders,0.70312959,TRUE
+parkinsonian disorders,joint diseases,0.611274719,FALSE
+parkinsonian disorders,skin diseases,0.626184702,TRUE
+basal ganglia diseases,neurodegenerative diseases,0.6211074,TRUE
+basal ganglia diseases,parkinsonian disorders,0.679036975,TRUE
+basal ganglia diseases,skin diseases,0.605733991,TRUE
+coronary artery disease,coronary disease,0.689855516,TRUE
+coronary artery disease,myocardial infarction,0.611658514,TRUE
+coronary disease,myocardial infarction,0.6685161,TRUE
+"genital diseases, female",arthritis,0.607223332,FALSE
+"genital diseases, female",disorders of sex development,0.597592652,TRUE
+"genital diseases, female",heart arrest,0.655300379,FALSE
+"genital diseases, female",neuromuscular diseases,0.706765711,FALSE
+kidney diseases,asthma,0.591843724,TRUE
+kidney diseases,"diabetes mellitus, type 1",0.685404539,TRUE
+kidney diseases,"diabetes mellitus, type 2",0.577258885,TRUE
+kidney diseases,metabolic syndrome x,0.589330912,TRUE
+kidney diseases,urination disorders,0.586712182,TRUE
+disorders of sex development,heart arrest,0.654053211,TRUE
+disorders of sex development,peripheral nervous system diseases,0.652097642,FALSE
+heart arrest,cerebellar ataxia,0.755756617,FALSE
+heart arrest,peripheral nervous system diseases,0.616394818,FALSE
+asthma,"diabetes mellitus, type 1",0.635716081,TRUE
+asthma,heart diseases,0.621408582,TRUE
+asthma,lung diseases,0.594091117,TRUE
+asthma,myocardial ischemia,0.618578732,TRUE
+"diabetes mellitus, type 1",breast neoplasms,0.605970383,TRUE
+"diabetes mellitus, type 1",metabolic syndrome x,0.590947628,TRUE
+"diabetes mellitus, type 1",nutrition disorders,0.595352411,TRUE
+heart diseases,liver cirrhosis,0.645577073,TRUE
+heart diseases,liver diseases,0.645577073,TRUE
+heart diseases,myocardial infarction,0.655917645,TRUE
+heart diseases,myocardial ischemia,0.681920767,TRUE
+lung diseases,"lung diseases, obstructive",0.689293265,TRUE
+myocardial ischemia,coronary artery disease,0.602967262,TRUE
+myocardial ischemia,coronary disease,0.621221662,TRUE
+myocardial ischemia,myocardial infarction,0.717386127,TRUE
+ataxia,disorders of sex development,0.645631373,FALSE
+ataxia,heart arrest,0.612858355,FALSE
+ataxia,muscular diseases,0.71671778,TRUE
+ataxia,peripheral nervous system diseases,0.674449444,TRUE
+ataxia,spinal cord diseases,0.620844722,TRUE
+ataxia,spinal diseases,0.660948813,FALSE
+spinal diseases,cerebellar ataxia,0.617462874,FALSE
+spinal diseases,cranial nerve diseases,0.58065486,FALSE
+cranial nerve diseases,psoriasis,0.583598375,FALSE
+skin diseases,psoriasis,0.603171706,TRUE
+joint diseases,coronary disease,0.617141485,TRUE
