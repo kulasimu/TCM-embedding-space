@@ -1,0 +1,781 @@
+herbs,categories,rank
+白芍,Cold & Cool,606
+黄芩,Cold & Cool,444
+黄连,Cold & Cool,231
+大黄,Cold & Cool,377
+干地黄,Cold & Cool,381
+麦门冬,Cold & Cool,401
+枳壳,Cold & Cool,623
+朱砂,Cold & Cool,264
+柴胡,Cold & Cool,502
+赤芍,Cold & Cool,329
+栀子,Cold & Cool,441
+升麻,Cold & Cool,328
+黄柏,Cold & Cool,104
+石膏,Cold & Cool,380
+香附,Cold & Cool,681
+梅花冰片,Cold & Cool,92
+白矾,Cold & Cool,293
+知母,Cold & Cool,527
+木通,Cold & Cool,362
+牡丹皮,Cold & Cool,411
+玄参,Cold & Cool,56
+连翘,Cold & Cool,271
+犀角,Cold & Cool,277
+泽泻,Cold & Cool,480
+轻粉,Cold & Cool,42
+薄荷,Cold & Cool,107
+桑白皮,Cold & Cool,660
+天花粉,Cold & Cool,406
+川贝母,Cold & Cool,463
+牛黄,Cold & Cool,102
+枳实,Cold & Cool,626
+前胡,Cold & Cool,571
+地骨皮,Cold & Cool,347
+滑石,Cold & Cool,389
+三棱,Cold & Cool,753
+羚羊角,Cold & Cool,117
+菊花,Cold & Cool,197
+牛蒡子,Cold & Cool,185
+鳖甲,Cold & Cool,682
+铅丹,Cold & Cool,386
+牵牛子,Cold & Cool,607
+芒消,Cold & Cool,287
+车前子,Cold & Cool,244
+秦艽,Cold & Cool,534
+金银花,Cold & Cool,247
+蝉蜕,Cold & Cool,77
+天门冬,Cold & Cool,352
+青黛,Cold & Cool,215
+穿山甲,Cold & Cool,109
+苦参,Cold & Cool,153
+防己,Cold & Cool,539
+薏苡仁,Cold & Cool,584
+石斛,Cold & Cool,138
+硼砂,Cold & Cool,25
+牡蛎,Cold & Cool,438
+龙胆,Cold & Cool,385
+丹参,Cold & Cool,555
+朴消,Cold & Cool,306
+珍珠,Cold & Cool,18
+地榆,Cold & Cool,507
+郁金,Cold & Cool,242
+蔓荆子,Cold & Cool,116
+胡黄连,Cold & Cool,412
+葶苈子,Cold & Cool,661
+寒水石,Cold & Cool,227
+白蔹,Cold & Cool,27
+川楝子,Cold & Cool,596
+地龙,Cold & Cool,173
+水银,Cold & Cool,146
+赤小豆,Cold & Cool,141
+柑皮,Cold & Cool,769
+铅粉,Cold & Cool,513
+麻油,Cold & Cool,37
+五倍子,Cold & Cool,105
+大青盐,Cold & Cool,12
+白及,Cold & Cool,97
+天竹黄,Cold & Cool,334
+芦荟,Cold & Cool,391
+射干,Cold & Cool,178
+竹茹,Cold & Cool,291
+食盐,Cold & Cool,208
+甘遂,Cold & Cool,697
+栝楼,Cold & Cool,483
+决明子,Cold & Cool,3
+龟甲,Cold & Cool,95
+胆星,Cold & Cool,209
+孩儿茶,Cold & Cool,164
+瞿麦,Cold & Cool,449
+钩藤,Cold & Cool,313
+茵陈蒿,Cold & Cool,309
+沙参,Cold & Cool,305
+常山,Cold & Cool,610
+白鲜皮,Cold & Cool,165
+百合,Cold & Cool,578
+侧柏叶,Cold & Cool,190
+龙齿,Cold & Cool,132
+铜绿,Cold & Cool,86
+罂粟壳,Cold & Cool,547
+石决明,Cold & Cool,10
+枇杷叶,Cold & Cool,732
+竹叶,Cold & Cool,435
+胆矾,Cold & Cool,31
+蛤蜊粉,Cold & Cool,583
+熊胆,Cold & Cool,523
+槐花,Cold & Cool,140
+槐角,Cold & Cool,232
+益母草,Cold & Cool,462
+代赭石,Cold & Cool,633
+紫草,Cold & Cool,73
+银箔,Cold & Cool,311
+蕤仁,Cold & Cool,8
+青木香,Cold & Cool,543
+冬葵子,Cold & Cool,616
+大戟,Cold & Cool,645
+雷丸,Cold & Cool,699
+灯心草,Cold & Cool,630
+白薇,Cold & Cool,488
+柳枝,Cold & Cool,51
+通草,Cold & Cool,677
+栝楼子,Cold & Cool,686
+猪脂膏,Cold & Cool,28
+白茅根,Cold & Cool,459
+淡竹叶,Cold & Cool,123
+青蒿,Cold & Cool,365
+藜芦,Cold & Cool,333
+青葙子,Cold & Cool,14
+海藻,Cold & Cool,581
+芦根,Cold & Cool,520
+茺蔚子,Cold & Cool,4
+玄明粉,Cold & Cool,210
+桑叶,Cold & Cool,548
+漏芦,Cold & Cool,93
+虾蟆,Cold & Cool,541
+铅霜,Cold & Cool,163
+大青,Cold & Cool,222
+绿矾,Cold & Cool,204
+人中白,Cold & Cool,65
+昆布,Cold & Cool,503
+贯众,Cold & Cool,239
+车前草,Cold & Cool,425
+禹余粮,Cold & Cool,710
+小麦,Cold & Cool,400
+蒲公英,Cold & Cool,66
+茜草,Cold & Cool,364
+夜明砂,Cold & Cool,494
+石韦,Cold & Cool,207
+甘菊,Cold & Cool,43
+甘草节,Cold & Cool,106
+甜瓜蒂,Cold & Cool,407
+虻虫,Cold & Cool,696
+夏枯草,Cold & Cool,45
+马兜铃,Cold & Cool,643
+秦皮,Cold & Cool,283
+商陆,Cold & Cool,393
+地肤子,Cold & Cool,151
+鬼箭羽,Cold & Cool,734
+茶叶,Cold & Cool,576
+蜇虫,Cold & Cool,440
+苍耳,Cold & Cool,542
+酥,Cold & Cool,349
+铅,Cold & Cool,453
+蟾蜍,Cold & Cool,525
+密蒙花,Cold & Cool,62
+绿豆,Cold & Cool,671
+猪肉,Cold & Cool,64
+竹沥,Cold & Cool,378
+楮实,Cold & Cool,60
+绿豆粉,Cold & Cool,615
+防葵,Cold & Cool,705
+马钱子,Cold & Cool,561
+浮萍,Cold & Cool,266
+墨旱莲,Cold & Cool,100
+浙贝母,Cold & Cool,474
+石莲,Cold & Cool,451
+八角莲,Cold & Cool,657
+苦楝皮,Cold & Cool,703
+海金沙,Cold & Cool,552
+紫花地丁,Cold & Cool,85
+粟米,Cold & Cool,261
+蜗牛,Cold & Cool,743
+榆白皮,Cold & Cool,142
+冬瓜子,Cold & Cool,517
+蜣螂,Cold & Cool,475
+荸荠,Cold & Cool,258
+天灵盖,Cold & Cool,498
+石燕,Cold & Cool,373
+大青叶,Cold & Cool,72
+水苏,Cold & Cool,113
+梨,Cold & Cool,326
+猪胆,Cold & Cool,158
+甘草梢,Cold & Cool,532
+芝麻菜,Cold & Cool,639
+黑参,Cold & Cool,2
+蛇含石,Cold & Cool,47
+忍冬藤,Cold & Cool,206
+山慈菇,Cold & Cool,24
+玄精石,Cold & Cool,546
+虎睛,Cold & Cool,268
+芙蓉叶,Cold & Cool,187
+马齿苋,Cold & Cool,91
+人中黄,Cold & Cool,667
+象牙,Cold & Cool,32
+大蓟,Cold & Cool,738
+女贞子,Cold & Cool,469
+莲子心,Cold & Cool,189
+椿白皮,Cold & Cool,421
+蚱蝉,Cold & Cool,335
+银柴胡,Cold & Cool,599
+虎杖,Cold & Cool,493
+生姜皮,Cold & Cool,499
+甜瓜子,Cold & Cool,272
+人尿,Cold & Cool,434
+凌霄花,Cold & Cool,448
+莱菔,Cold & Cool,774
+白头翁,Cold & Cool,477
+小蓟,Cold & Cool,325
+针砂,Cold & Cool,484
+黄药子,Cold & Cool,690
+板蓝根,Cold & Cool,174
+荠苨,Cold & Cool,145
+泽漆,Cold & Cool,570
+无名异,Cold & Cool,780
+藕,Cold & Cool,569
+铁,Cold & Cool,192
+土贝母,Cold & Cool,307
+败酱,Cold & Cool,156
+鲜地黄,Cold & Cool,171
+桑椹子,Cold & Cool,371
+豨莶,Cold & Cool,108
+蝼蛄,Cold & Cool,55
+西洋参,Cold & Cool,605
+曾青,Cold & Cool,52
+秫米,Cold & Cool,384
+浮海石,Cold & Cool,179
+萹蓄,Cold & Cool,549
+石龙芮,Cold & Cool,336
+牛胆,Cold & Cool,618
+北沙参,Cold & Cool,551
+棘针,Cold & Cool,297
+马蔺花,Cold & Cool,751
+石见穿,Cold & Cool,683
+蔷薇根,Cold & Cool,259
+水牛角,Cold & Cool,611
+鸡冠花,Cold & Cool,653
+红大戟,Cold & Cool,519
+蛤壳,Cold & Cool,180
+秋石,Cold & Cool,160
+牡鼠粪,Cold & Cool,274
+浮石,Cold & Cool,505
+牛乳,Cold & Cool,592
+丝瓜,Cold & Cool,94
+柿霜,Cold & Cool,103
+玳瑁,Cold & Cool,200
+木蓝,Cold & Cool,715
+络石藤,Cold & Cool,457
+羊肝,Cold & Cool,9
+藤黄,Cold & Cool,33
+樗白皮,Cold & Cool,235
+紫葛,Cold & Cool,730
+大叶藻,Cold & Cool,735
+葛花,Cold & Cool,144
+牛蒡根,Cold & Cool,168
+五谷虫,Cold & Cool,255
+井泉石,Cold & Cool,169
+马鞭草,Cold & Cool,205
+苦竹叶,Cold & Cool,157
+蟾头,Cold & Cool,522
+蚌粉,Cold & Cool,368
+蜘蛛,Cold & Cool,48
+不灰木,Cold & Cool,728
+蛇含,Cold & Cool,127
+藏羚角,Cold & Cool,472
+白药子,Cold & Cool,600
+金钟茵陈,Cold & Cool,253
+梅花,Cold & Cool,186
+木防己,Cold & Cool,426
+寒食面,Cold & Cool,562
+蚺蛇胆,Cold & Cool,718
+苎麻根,Cold & Cool,366
+黄矾,Cold & Cool,218
+空青,Cold & Cool,69
+浮小麦,Cold & Cool,217
+茄根,Cold & Cool,452
+荞麦,Cold & Cool,59
+水红花子,Cold & Cool,764
+胡桐泪,Cold & Cool,194
+鲤鱼胆,Cold & Cool,7
+石龙子,Cold & Cool,563
+大麦,Cold & Cool,136
+望月砂,Cold & Cool,510
+冬葵根,Cold & Cool,342
+石碱,Cold & Cool,495
+蚤休,Cold & Cool,676
+田螺,Cold & Cool,327
+丝带蕨,Cold & Cool,740
+青蒿子,Cold & Cool,650
+狗胆,Cold & Cool,575
+白贝,Cold & Cool,115
+猪蹄甲,Cold & Cool,418
+蜗牛壳,Cold & Cool,528
+鲤鱼鳞,Cold & Cool,392
+芜菁子,Cold & Cool,579
+水龙骨,Cold & Cool,191
+海粉,Cold & Cool,702
+铅灰,Cold & Cool,427
+鸡子白,Cold & Cool,692
+管仲,Cold & Cool,399
+小萹蓄,Cold & Cool,497
+桐油,Cold & Cool,49
+苦楝子,Cold & Cool,149
+薄荷脑,Cold & Cool,675
+鼠妇,Cold & Cool,83
+石蟹,Cold & Cool,71
+红花子,Cold & Cool,729
+冬瓜,Cold & Cool,211
+羊胆,Cold & Cool,357
+羊蹄,Cold & Cool,279
+黄蜀葵花,Cold & Cool,249
+葛粉,Cold & Cool,267
+雷公藤,Cold & Cool,219
+石莲子,Cold & Cool,356
+蓝实,Cold & Cool,471
+锡,Cold & Cool,358
+栝楼皮,Cold & Cool,395
+闾茹,Cold & Cool,54
+青鱼胆,Cold & Cool,624
+土荆皮,Cold & Cool,50
+拳参,Cold & Cool,439
+兔肝,Cold & Cool,256
+木槿皮,Cold & Cool,167
+百眼藤,Cold & Cool,745
+绿豆皮,Cold & Cool,413
+壁虎,Cold & Cool,636
+天名精,Cold & Cool,84
+金精石,Cold & Cool,455
+西瓜霜,Cold & Cool,414
+景天,Cold & Cool,341
+木蝴蝶,Cold & Cool,695
+柳根,Cold & Cool,387
+李根皮,Cold & Cool,289
+桑柴灰,Cold & Cool,476
+蕨,Cold & Cool,492
+枸杞叶,Cold & Cool,223
+珍珠母,Cold & Cool,350
+甘草,Mild,456
+茯苓,Mild,594
+桔梗,Mild,420
+牛膝,Mild,372
+没药,Mild,296
+赤茯苓,Mild,573
+山药,Mild,550
+全蝎,Mild,234
+葛根,Mild,363
+天麻,Mild,226
+白僵蚕,Mild,133
+桃仁,Mild,509
+诃子,Mild,688
+茯神,Mild,382
+龙骨,Mild,496
+阿胶,Mild,511
+乌梅,Mild,526
+酸枣仁,Mild,181
+枸杞子,Mild,70
+菟丝子,Mild,198
+麦芽,Mild,758
+血竭,Mild,30
+刺蒺藜,Mild,1
+琥珀,Mild,225
+柏子仁,Mild,587
+萆薢,Mild,224
+猪苓,Mild,500
+蒲黄,Mild,201
+淡豆豉,Mild,355
+黑大豆,Mild,295
+蜂蜜,Mild,276
+血余,Mild,246
+蜂蜡,Mild,154
+郁李仁,Mild,673
+蛇蜕,Mild,229
+粳米,Mild,693
+火麻仁,Mild,514
+莱菔子,Mild,700
+阿魏,Mild,749
+白扁豆,Mild,706
+乌蛇,Mild,172
+莲子,Mild,631
+磁石,Mild,82
+木贼,Mild,22
+玉竹,Mild,303
+桑寄生,Mild,285
+党参,Mild,678
+密陀僧,Mild,416
+金箔,Mild,265
+苏木,Mild,34
+蓖麻子,Mild,119
+自然铜,Mild,301
+露蜂房,Mild,98
+芡实,Mild,585
+炉甘石,Mild,6
+桑螵蛸,Mild,580
+墨,Mild,424
+覆盆子,Mild,422
+海桐皮,Mild,275
+黑芝麻,Mild,467
+川牛膝,Mild,53
+铁粉,Mild,214
+水蛭,Mild,447
+安息香,Mild,589
+小谷精草,Mild,29
+鸡内金,Mild,748
+槐枝,Mild,351
+枫香脂,Mild,63
+桑枝,Mild,125
+雌黄,Mild,403
+鹤虱,Mild,175
+刺猬皮,Mild,299
+白石脂,Mild,478
+土茯苓,Mild,21
+土瓜,Mild,458
+鸡子,Mild,554
+灵香草,Mild,99
+荷叶,Mild,339
+莲须,Mild,404
+青礞石,Mild,354
+桃枝,Mild,340
+石南,Mild,243
+百药煎,Mild,322
+王不留行,Mild,432
+慈乌,Mild,417
+黄精,Mild,126
+胭脂,Mild,286
+狼毒,Mild,648
+麻黄根,Mild,464
+白沙糖,Mild,278
+卷柏,Mild,345
+谷芽,Mild,446
+白皮,Mild,689
+黄明胶,Mild,129
+马勃,Mild,61
+鲫鱼,Mild,147
+蛤蚧,Mild,602
+雀瓮,Mild,216
+棕榈皮,Mild,437
+橘核,Mild,19
+陈仓米,Mild,687
+菟丝,Mild,544
+金樱子,Mild,294
+茯苓皮,Mild,302
+白梅,Mild,188
+红豆,Mild,778
+藕节,Mild,565
+亚麻子,Mild,257
+紫草茸,Mild,202
+芸薹子,Mild,348
+桑耳,Mild,319
+紫荆皮,Mild,390
+鱼鳔,Mild,212
+槐白皮,Mild,379
+白果,Mild,654
+铁精,Mild,67
+木耳,Mild,110
+大豆黄卷,Mild,315
+陆英,Mild,68
+紫贝,Mild,273
+猪肾,Mild,470
+人乳汁,Mild,300
+花蕊石,Mild,290
+松萝,Mild,553
+鲤鱼,Mild,670
+柿蒂,Mild,308
+桃茎白皮,Mild,582
+棕榈炭,Mild,454
+佩兰,Mild,685
+柏根白皮,Mild,652
+乌骨鸡,Mild,491
+红娘子,Mild,680
+桃花,Mild,314
+猪胰,Mild,148
+莲房,Mild,238
+猪蹄,Mild,57
+橄榄,Mild,220
+橘叶,Mild,130
+野菊花,Mild,17
+珊瑚,Mild,556
+乌鸦,Mild,134
+驴肉,Mild,324
+玉,Mild,564
+小草,Mild,131
+冰糖,Mild,658
+猕猴骨,Mild,481
+蚕退纸,Mild,487
+枫香树叶,Mild,634
+鹅肉,Mild,614
+榼藤子,Mild,489
+人指甲,Mild,193
+马蔺子,Mild,708
+陆英根,Mild,768
+橘,Mild,199
+鼠曲草,Mild,577
+瓦楞子,Mild,773
+甘蓝,Mild,762
+榧子,Mild,121
+小青,Mild,460
+菝葜,Mild,621
+向日葵子,Mild,428
+紫檀,Mild,221
+鸡子黄,Mild,159
+蝙蝠,Mild,408
+绿盐,Mild,35
+桃胶,Mild,39
+鸡子壳,Mild,501
+蚕蜕,Mild,649
+番红花,Mild,88
+莲花,Mild,5
+水蓼,Mild,736
+羊髓,Mild,465
+鳗鲡鱼,Mild,87
+柿饼,Mild,166
+槐耳,Mild,135
+栗子,Mild,155
+马齿,Mild,11
+柽柳,Mild,346
+凤凰衣,Mild,41
+桃叶,Mild,397
+碧桃干,Mild,566
+当归,Warm & Hot,433
+人参,Warm & Hot,574
+白术,Warm & Hot,709
+川芎,Warm & Hot,320
+橘皮,Warm & Hot,757
+防风,Warm & Hot,78
+木香,Warm & Hot,591
+半夏,Warm & Hot,722
+干姜,Warm & Hot,712
+附子,Warm & Hot,632
+肉桂,Warm & Hot,725
+黄芪,Warm & Hot,361
+麝香,Warm & Hot,376
+桂心,Warm & Hot,612
+熟地黄,Warm & Hot,332
+槟榔,Warm & Hot,724
+白芷,Warm & Hot,195
+羌活,Warm & Hot,237
+厚朴,Warm & Hot,756
+细辛,Warm & Hot,170
+杏仁,Warm & Hot,637
+乳香,Warm & Hot,79
+荆芥,Warm & Hot,150
+麻黄,Warm & Hot,402
+雄黄,Warm & Hot,298
+青皮,Warm & Hot,651
+苍术,Warm & Hot,531
+五味子,Warm & Hot,557
+生姜,Warm & Hot,691
+独活,Warm & Hot,241
+丁香,Warm & Hot,750
+砂仁,Warm & Hot,701
+天南星,Warm & Hot,409
+川乌头,Warm & Hot,288
+远志,Warm & Hot,338
+吴茱萸,Warm & Hot,772
+沉香,Warm & Hot,694
+花椒,Warm & Hot,468
+巴豆,Warm & Hot,559
+神曲,Warm & Hot,741
+杜仲,Warm & Hot,321
+皂荚,Warm & Hot,240
+山茱萸,Warm & Hot,344
+小茴香,Warm & Hot,767
+藿香,Warm & Hot,530
+红花,Warm & Hot,485
+莪术,Warm & Hot,759
+石菖蒲,Warm & Hot,318
+肉豆蔻,Warm & Hot,716
+白附子,Warm & Hot,405
+大枣,Warm & Hot,593
+草乌头,Warm & Hot,196
+紫苏叶,Warm & Hot,524
+续断,Warm & Hot,292
+硫黄,Warm & Hot,726
+延胡索,Warm & Hot,595
+肉苁蓉,Warm & Hot,572
+补骨脂,Warm & Hot,641
+山楂,Warm & Hot,760
+乌药,Warm & Hot,746
+高良姜,Warm & Hot,777
+木瓜,Warm & Hot,723
+赤石脂,Warm & Hot,698
+紫菀,Warm & Hot,619
+巴戟天,Warm & Hot,331
+当归身,Warm & Hot,176
+桂枝,Warm & Hot,560
+五灵脂,Warm & Hot,717
+硇砂,Warm & Hot,506
+艾叶,Warm & Hot,620
+橘红,Warm & Hot,642
+何首乌,Warm & Hot,263
+当归尾,Warm & Hot,183
+白豆蔻,Warm & Hot,742
+藁本,Warm & Hot,359
+鹿茸,Warm & Hot,504
+虎骨,Warm & Hot,310
+威灵仙,Warm & Hot,262
+草豆蔻,Warm & Hot,770
+五加皮,Warm & Hot,508
+大腹皮,Warm & Hot,719
+蛇床子,Warm & Hot,284
+木鳖子,Warm & Hot,536
+胡椒,Warm & Hot,771
+松香,Warm & Hot,80
+蜈蚣,Warm & Hot,89
+益智仁,Warm & Hot,540
+款冬花,Warm & Hot,635
+天雄,Warm & Hot,353
+海螵蛸,Warm & Hot,112
+葱白,Warm & Hot,398
+干漆,Warm & Hot,737
+旋覆花,Warm & Hot,568
+紫苏子,Warm & Hot,668
+芫花,Warm & Hot,720
+芜荑,Warm & Hot,282
+草果,Warm & Hot,659
+蟾酥,Warm & Hot,203
+使君子,Warm & Hot,672
+消石,Warm & Hot,704
+檀香,Warm & Hot,744
+姜黄,Warm & Hot,516
+斑蝥,Warm & Hot,415
+骨碎补,Warm & Hot,228
+紫苏梗,Warm & Hot,512
+糯米,Warm & Hot,713
+白芥子,Warm & Hot,251
+荜茇,Warm & Hot,707
+泽兰,Warm & Hot,538
+皂角刺,Warm & Hot,114
+胡桃仁,Warm & Hot,248
+甘松,Warm & Hot,162
+百花锦蛇,Warm & Hot,101
+狗脊,Warm & Hot,252
+樟脑,Warm & Hot,81
+砒石,Warm & Hot,601
+酒,Warm & Hot,521
+莽草,Warm & Hot,76
+八角茴香,Warm & Hot,666
+百草霜,Warm & Hot,177
+炮姜,Warm & Hot,638
+母丁香,Warm & Hot,603
+荜澄茄,Warm & Hot,766
+沙苑子,Warm & Hot,96
+伏龙肝,Warm & Hot,604
+砒霜,Warm & Hot,367
+胡芦巴,Warm & Hot,374
+百部,Warm & Hot,479
+巴豆霜,Warm & Hot,535
+淫羊藿,Warm & Hot,429
+鹿角胶,Warm & Hot,445
+粉霜,Warm & Hot,558
+紫石英,Warm & Hot,58
+白丁香,Warm & Hot,139
+香薷,Warm & Hot,669
+石灰,Warm & Hot,26
+大蒜,Warm & Hot,567
+降香,Warm & Hot,529
+韭子,Warm & Hot,423
+鸡骨香,Warm & Hot,40
+闹羊花,Warm & Hot,75
+石榴皮,Warm & Hot,419
+大风子,Warm & Hot,13
+三七,Warm & Hot,152
+皂荚子,Warm & Hot,254
+丁香树皮,Warm & Hot,727
+茵芋,Warm & Hot,184
+蚕沙,Warm & Hot,270
+钟乳石,Warm & Hot,396
+紫河车,Warm & Hot,236
+没食子,Warm & Hot,646
+薤白,Warm & Hot,684
+刘寄奴,Warm & Hot,280
+阳起石,Warm & Hot,609
+苍耳子,Warm & Hot,15
+白石英,Warm & Hot,375
+鹿角,Warm & Hot,337
+千金子,Warm & Hot,137
+象皮,Warm & Hot,490
+虫白蜡,Warm & Hot,118
+鹿角霜,Warm & Hot,430
+辛夷,Warm & Hot,74
+龙眼肉,Warm & Hot,431
+银朱,Warm & Hot,128
+羊肉,Warm & Hot,537
+天仙子,Warm & Hot,545
+锁阳,Warm & Hot,213
+山柰,Warm & Hot,640
+醋,Warm & Hot,613
+千年艾,Warm & Hot,588
+白前,Warm & Hot,662
+松节,Warm & Hot,90
+原蚕蛾,Warm & Hot,317
+竹节香附,Warm & Hot,436
+椒目,Warm & Hot,608
+鼠,Warm & Hot,644
+小南木香,Warm & Hot,323
+羊肾,Warm & Hot,343
+蜀漆,Warm & Hot,622
+侧子,Warm & Hot,627
+云母,Warm & Hot,755
+红曲,Warm & Hot,410
+杜衡,Warm & Hot,360
+食茱萸,Warm & Hot,628
+红粉,Warm & Hot,38
+海鳗,Warm & Hot,629
+红木香,Warm & Hot,44
+苏合香,Warm & Hot,765
+姜炭,Warm & Hot,466
+礜石,Warm & Hot,665
+海风藤,Warm & Hot,16
+蛴螬,Warm & Hot,383
+荔枝核,Warm & Hot,590
+猪肚,Warm & Hot,450
+饴糖,Warm & Hot,763
+紫梢花,Warm & Hot,515
+赤沙糖,Warm & Hot,36
+鹅管石,Warm & Hot,245
+地胆,Warm & Hot,779
+天仙藤,Warm & Hot,598
+仙茅,Warm & Hot,711
+广藿香,Warm & Hot,461
+獭肝,Warm & Hot,443
+芫青,Warm & Hot,304
+芥子,Warm & Hot,739
+牛角（角思）,Warm & Hot,120
+猪肝,Warm & Hot,655
+小血藤,Warm & Hot,312
+雪里见,Warm & Hot,250
+乌头附子尖,Warm & Hot,233
+羊骨,Warm & Hot,46
+松叶,Warm & Hot,518
+红豆蔻,Warm & Hot,733
+鸡血藤,Warm & Hot,388
+煨姜,Warm & Hot,394
+雀,Warm & Hot,473
+桂皮,Warm & Hot,269
+海狗肾,Warm & Hot,775
+透骨草,Warm & Hot,647
+海马,Warm & Hot,281
+急性子,Warm & Hot,597
+海松子,Warm & Hot,442
+牡荆子,Warm & Hot,663
+羊脂,Warm & Hot,482
+鹅不食草,Warm & Hot,20
+肥皂荚,Warm & Hot,23
+女萎,Warm & Hot,586
+佛手柑,Warm & Hot,664
+鸦片,Warm & Hot,679
+香橼,Warm & Hot,747
+白垩,Warm & Hot,714
+猫肉,Warm & Hot,230
+徐长卿,Warm & Hot,776
+鸡头,Warm & Hot,674
+蘘荷,Warm & Hot,533
+香茅,Warm & Hot,754
+木天蓼,Warm & Hot,143
+黑骨头,Warm & Hot,656
+条参,Warm & Hot,486
+罗勒,Warm & Hot,617
+黄皮,Warm & Hot,370
+灵砂,Warm & Hot,316
+麋角,Warm & Hot,122
+三叶海棠,Warm & Hot,761
+酸石榴,Warm & Hot,721
+甜石榴,Warm & Hot,625
+黍米,Warm & Hot,330
+南藤,Warm & Hot,260
+橄榄核,Warm & Hot,111
+松花,Warm & Hot,161
+石榴根,Warm & Hot,731
+峨参,Warm & Hot,369
+葱汁,Warm & Hot,124
+杉木节,Warm & Hot,182
+酒糟,Warm & Hot,752
